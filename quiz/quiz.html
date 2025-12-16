@@ -1,0 +1,55 @@
+<!DOCTYPE html>
+<html lang="sk">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Soria quizes</title>
+  <link rel="stylesheet" href="quiz.css">
+  <link rel="icon" href="../media/sor.png" type="image/x-icon"/>
+</head>
+
+<body>
+
+<!-- TOP BAR -->
+<div class="top-bar">
+  <a href="#" class="back-btn" onclick="goBack()">← Späť</a>
+
+  <div class="progress-bar">
+    <div class="progress-fill"></div>
+  </div>
+</div>
+
+<!-- QUIZ CARD -->
+<div class="quiz-wrapper">
+  <div class="quiz-card">
+
+    <!-- HEADER -->
+    <div class="quiz-header">
+      <h2 id="quiz-title"></h2>
+      <div class="timer">⏱ 00:13</div>
+    </div>
+
+    <!-- QUESTION -->
+    <div class="question-box">
+      <span class="counter"></span>
+      <p id="question-text"></p>
+    </div>
+
+    <!-- ANSWERS -->
+    <div class="answers">
+      <button class="answer-btn"></button>
+      <button class="answer-btn"></button>
+      <button class="answer-btn"></button>
+      <button class="answer-btn"></button>
+    </div>
+
+    <!-- NEXT -->
+    <button class="next-btn">Ďalej</button>
+
+  </div>
+</div>
+
+<script src="quiz.js"></script>
+
+</body>
+</html>
