@@ -1,0 +1,36 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <style>
+        #board {
+            width: 500px;
+            height: 300px;
+            background: lightblue;
+            position: relative;
+        }
+        #ball {
+            width: 60px;
+            position: absolute;
+            cursor: grab;
+        }
+    </style>
+</head>
+<body>
+<div id="board">
+    <img id="ball" src="https://upload.wikimedia.org/wikipedia/commons/7/7a/Basketball.png">
+</div>
+
+<script>
+    const ball = document.getElementById("ball");
+    let dragging = false;
+
+    ball.addEventListener("mousedown", () => dragging = true);
+    document.addEventListener("mouseup", () => dragging = false);
+    document.addEventListener("mousemove", (e) => {
+        if (!dragging) return;
+        ball.style.left = e.clientX - ball.width / 2 + "px";
+        ball.style.top = e.clientY - ball.height / 2 + "px";
+    });
+</script>
+</body>
+</html>

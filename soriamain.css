@@ -1,0 +1,156 @@
+body {
+    background: #07152C;
+    margin: 0;
+    justify-content: center;
+    align-items: center;
+    height: 100vh;
+    display: flex;
+    font-family: 'Inter', sans-serif;
+
+}
+
+
+html, body {
+    color-scheme: dark;
+}
+
+.entrance-logo {
+    height: 200px;
+    width: 200px;
+}
+
+
+#output {
+    font-family: monospace;
+    font-size: 25px;
+    padding-bottom: 50px;
+}
+
+.menu-segment {
+    background-color: rgba(255, 255, 255, 0.07);
+    background-size: 300% 300%;
+    animation: gradientShine 15s ease infinite;
+    padding: 50px;
+    box-shadow: 10px 10px 0 rgba(0, 0, 0, 0.3);
+    border-radius: 15px;
+    display: flex;
+    position: inherit;
+    flex-direction: column;
+    align-items: center;
+    gap: 15px;
+    width: 300px;
+    transition: transform 0.6s;
+
+}
+
+.menu-segment:hover {
+    transform: scale(1.02);
+}
+.entrance-btns{
+    width: 180px;
+    padding: 12px 0;
+    font-size: 16px;
+    border-radius: 8px;
+    cursor: pointer;
+    transition: 0.3s;
+    border: none;
+    box-shadow: 0 4px 12px rgba(0, 0, 0, 0.45);
+}
+
+.entrance-btns {
+    background: #2e3bf0;
+    border: none;
+    color: white;
+    font-family: monospace;
+}
+
+.entrance-btns:hover {
+    background: linear-gradient(135deg, #3000a6, #000ecc);
+}
+
+
+
+.footer {
+    color: white;
+    margin-top: 30px;
+    font-size: 14px;
+    text-align: center;
+    width: 100%;
+    position: absolute;
+    bottom: 20px;
+    left: 0;
+}
+
+
+/*
+login CSS */
+
+.login-segment{
+    background: linear-gradient(135deg, #001f3f, #003973);
+    display: flex;
+    flex-direction: column;
+    padding: 30px;
+    align-items: center;
+    width: 300px;
+    border-radius: 15px;
+}
+
+form {
+    display: flex;
+    flex-direction: column;
+    gap: 10px;
+
+}
+
+
+input {
+    width: 250px;
+    border: none;
+    border-radius: 10px;
+    padding: 7px;
+    background-color: #003973;
+}
+
+.login-btn {
+    border: none;
+    background: linear-gradient(135deg, #00ff88, #00ccff);
+    border-radius: 10px;
+    padding: 10px;
+    font-size: 17px;
+    margin-top: 20px;
+    width: 120px;
+    transition: 0.3s ease;
+
+}
+.login-btn:hover {
+    cursor: pointer;
+    background: linear-gradient(135deg, #00ccff, #0066ff);
+    box-shadow: 0 4px 15px rgba(0, 204, 255, 0.5);
+}
+
+
+
+
+
+/*Design for the smaller device
+@media (max-width: 760px) {
+    body {
+        height: auto;
+
+        flex-direction: column;
+        justify-content: center;
+        align-items: center;
+    }
+
+    .entrance-logo {
+        display: flex;
+        height: 100vh;
+        width: 100vh;
+    }
+}
+*/
+
+
+
+
+

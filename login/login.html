@@ -1,0 +1,64 @@
+<!DOCTYPE html>
+<html lang="sk">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Soria – Login</title>
+
+  <link rel="stylesheet" href="login.css">
+  <link rel="icon" href="../media/sor.png" type="image/x-icon"/>
+</head>
+
+<body>
+
+<!-- Back Button -->
+<a href="../soriamain.html" class="back-btn">← Späť</a>
+
+<!-- Login Card -->
+<div class="login-container">
+  <div class="login-card">
+    <form class="login-form" onsubmit="verify(event)">
+
+      <!-- Email Input -->
+      <div class="input-wrapper">
+        <img src="../media/email-icon.png" alt="Email" class="input-icon">
+        <input type="email" id="email" placeholder="Email" required>
+      </div>
+
+      <!-- Password Input -->
+      <div class="input-wrapper">
+        <img src="../media/lock-icon.png" alt="Password" class="input-icon">
+        <input type="password" id="password" placeholder="Heslo" required>
+      </div>
+
+      <!-- Submit Button -->
+      <button class="login-btn" type="submit">Prihlásiť sa</button>
+
+      <!-- Register Text -->
+      <p class="register-text">
+        Nemáte účet? Môžete sa <a href="../signup/signup.html">zaregistrovať tu</a>
+      </p>
+
+    </form>
+    <script>
+      const email = document.getElementById('email');
+      const password = document.getElementById('password');
+
+      function verify(event) {
+        event.preventDefault()
+        if (email.value === '2004gamaniuk.hoka@gmail.com' && password.value === 'yes') {
+          console.log(email.value);
+          console.log(password.value);
+          window.location.href = "../profile/profile.html";
+        }else {
+          alert('Incorrect email or password');
+          return false;
+        }
+      }
+
+    </script>
+  </div>
+</div>
+
+</body>
+</html>

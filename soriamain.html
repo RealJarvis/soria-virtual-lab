@@ -1,0 +1,40 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Soria</title>
+
+  <link rel="stylesheet" href="soriamain.css">
+  <link rel="icon" href="media/sor.png" type="image/x-icon"/>
+</head>
+<body>
+
+<div class="menu-segment">
+  <div id="output"></div>
+  <a href="login/login.html"><button class="entrance-btns">Prihlásiť sa</button></a>
+  <a href="theory/theory.html"><button class="entrance-btns">Teória</button></a>
+  <a href="lab/lab.html"><button class="entrance-btns" >Laboratórium</button></a>
+<script>
+  const text = "Vitajte na Soria⚡"
+  const speed = 50;
+  let i = 0;
+
+  function typeFunc() {
+    if (i < text.length) {
+      document.getElementById("output").innerHTML += text.charAt(i);
+      i++;
+      setTimeout(typeFunc, speed);
+    }
+  }
+
+  typeFunc();
+</script>
+</div>
+
+<footer class="footer">
+  <p>© 2025 Soria. Soria Limited.</p>
+</footer>
+
+</body>
+</html>

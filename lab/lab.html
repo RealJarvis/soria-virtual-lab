@@ -1,0 +1,85 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title >Virtual Lab</title>
+  <link rel="icon" href="../media/sor.png" type="image/x-icon"/>
+  <link rel="stylesheet" href="lab.css">
+
+</head>
+<body>
+
+
+<div class="lab-container">
+  <!-- Left: Lab area -->
+  <div id="lab-area">
+    <a onclick="goBack()" class="back-btn">← Späť</a>
+    <!--SVG layer for the wires -->
+    <svg id="wire-layer"></svg>
+
+  </div>
+  <script>
+    function goBack() {
+      window.history.back();
+    }
+  </script>
+
+
+
+
+  <!-- Right: Controls -->
+  <div class="interface">
+    <!--Switch between the code and the settings for the sensors-->
+    <div id="interface-buttons">
+      <div class="icon-btn active" data-type="settings" onclick="switchMenu(this)"><h1>⚙️</h1></div>
+      <div class="icon-btn" data-type="code" onclick="switchMenu(this)"><h1>🧑🏻‍💻</h1></div>
+    </div>
+
+    <div id="state-of" class="settings-segment">
+
+    </div>
+
+    <label class="settings-segment" for="sensor-select">Vyberte senzor:</label>
+    <select class="settings-segment" id="sensor-select">
+      <option value="PIR">PIR motion sensor</option>
+      <option value="DHT11">DHT11</option>
+      <option value="pico-2">Pico-2</option>
+      <option value="LED">LED</option>
+      <option value="resistor">Resistor</option>
+    </select>
+
+    <!--This is the custom menu for the right-click-->
+    <div id="custom-menu">
+      <div class="menu-item">Rotate</div>
+      <div class="menu-item" onclick="deleteSensor()">Delete</div>
+      <div class="menu-item" onclick="findSensorInfo()">Info</div>
+      <div class="menu-item" onclick="startConnection()">Connect</div>
+
+    </div>
+
+
+    <label class="settings-segment" id="object-select">Vyberte object:</label>
+    <select class="settings-segment" id="object-select-select">
+      <option value="Fan" >Fan</option>
+
+    </select>
+
+
+    <div class="code-segment">
+      <textarea class="code-segment" id="code" rows="5" cols="53"></textarea>
+      <script src="console.js"></script>
+    </div>
+    <!--logic for the connection is in lab.js file -->
+    <!--adding the sensors script-->
+    <script  src="lab.js"></script>
+
+    <button id="apply-settings" onclick="addSensor()">Použiť nastavenia</button>
+  </div>
+</div>
+
+
+
+
+</body>
+</html>
