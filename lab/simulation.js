@@ -116,20 +116,24 @@ const HEAT_RANGE = 160;    // cm range of heater influence
 // distance between centers of two objects (in pixels)
 function getDistanceBetween(el1, el2){
 
+    const lab = document.getElementById("lab-area").getBoundingClientRect();
     const r1 = el1.getBoundingClientRect();
     const r2 = el2.getBoundingClientRect();
 
-    const x1 = r1.left + r1.width / 2;
-    const y1 = r1.top  + r1.height / 2;
+    // convert to LAB coordinates (not screen)
+    const x1 = r1.left - lab.left + r1.width/2;
+    const y1 = r1.top  - lab.top  + r1.height/2;
 
-    const x2 = r2.left + r2.width / 2;
-    const y2 = r2.top  + r2.height / 2;
+    const x2 = r2.left - lab.left + r2.width/2;
+    const y2 = r2.top  - lab.top  + r2.height/2;
 
     const dx = x2 - x1;
     const dy = y2 - y1;
 
     return Math.sqrt(dx*dx + dy*dy);
 }
+
+
 
 
 function getHeatFromHeater(sensor, heater){
@@ -241,4 +245,111 @@ function startI2CSensor(sensorId) {
     runningSimulations[sensorId] = intervalId;
 }
 
+
+/* TODO this is the code made for the GP2Y0A41SK0F distance light sensor  */
+
+function getInfraredDistance(sensor, object){
+
+    const s = sensor.getBoundingClientRect();
+    const o = object.getBoundingClientRect();
+
+    const sensorX = s.left + s.width/2;
+    const sensorBottom = s.top + s.height;
+
+    const objectX = o.left + o.width/2;
+    const objectTop = o.top;
+
+    // must be below sensor
+    if(objectTop <= sensorBottom) return null;
+
+    // VERY NARROW beam
+    const horizontalDiff = Math.abs(sensorX - objectX);
+    if(horizontalDiff > 40) return null;
+
+    const verticalDistancePx = objectTop - sensorBottom;
+    return pixelsToCm(verticalDistancePx);
+}
+
+
+function startDistanceSensor(sensorId) {
+
+    if(runningSimulations[sensorId]) return;
+
+    printOnConsole(sensorId + " IR sensor started");
+
+    let intervalId = setInterval(()=>{
+
+        const sensor = document.getElementById(sensorId);
+        if(!sensor){
+            stopSimulation(sensorId);
+            return;
+        }
+
+        const heaters = document.querySelectorAll('[id^="heater"]');
+        let minDistance = Infinity;
+
+        heaters.forEach(h=>{
+            let d = getInfraredDistance(sensor, h);
+            if(d !== null && d < minDistance) minDistance = d;
+        });
+
+        if(minDistance === Infinity || minDistance > 30){
+            printOnConsole("IR distance: Out of range");
+            return;
+        }
+
+        if(minDistance < 4) minDistance = 4;
+
+        printOnConsole("IR distance: " + Math.round(minDistance) + " cm");
+
+    },2000);
+
+    runningSimulations[sensorId] = intervalId;
+}
+
+/* TODO this is the code made for the GP2Y0A41SK0F distance light sensor  */
+
+function isMagnetNear(sensor){
+
+    const magnets = document.querySelectorAll('[id^="magnet"]');
+
+    for (let magnet of magnets){
+        const dist = getDistanceBetween(sensor, magnet);
+        const cm = pixelsToCm(dist);
+
+        if(cm < 30){   // 5 cm magnetic field range
+            return true;
+        }
+    }
+
+    return false;
+}
+
+
+function startHallSimulation(sensorId) {
+
+    if(runningSimulations[sensorId]) return;
+
+    printOnConsole(sensorId + " Hall sensor started");
+
+    let intervalId = setInterval(()=>{
+
+        const sensor = document.getElementById(sensorId);
+        if(!sensor){
+            stopSimulation(sensorId);
+            return;
+        }
+
+        const detected = isMagnetNear(sensor);
+
+        if(detected){
+            printOnConsole("Magnet detected → HIGH");
+        }else{
+            printOnConsole("No magnet → LOW");
+        }
+
+    },2000);
+
+    runningSimulations[sensorId] = intervalId;
+}
 

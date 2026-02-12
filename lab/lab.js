@@ -6,6 +6,42 @@ let wires = [];                    // stores all drawn wires
 
 let selectedSensor = null;
 
+// pop up message which serves as a guid for the lab
+function activateAssitant(element) {
+    // tutorial logic
+    let popup = document.getElementById('tutorial-overlay');
+    popup.style.display = "flex";
+    let text = document.createElement("p");
+    if (element === "pico-2") {
+        text.innerText = "Vybrali ste si dosku Pico, teraz musíte pridať senzor alebo pripojiť senzor k Pico, ak ho máte."
+    }else if (element === "URM09") {
+        text.innerText = "Vyberte senzor, kliknite pravým tlačidlom myši a vyberte možnosť „Connect“, čím ho pripojíte k zariadeniu Pico. Keď všetko funguje, pridajte komponentný „Heating machine“ a umiestnite ho pod zariadenie, aby ste mohli merať vzdialenosť."
+    }else if (element === "LM35") {
+        text.innerText = "Vyberte senzor, kliknite pravým tlačidlom myši a vyberte možnosť „Connect“, čím ho pripojíte k zariadeniu Pico. Keď všetko funguje, pridajte komponent „Heating machine“ a umiestnite ho blízko senzora. Teplota stúpa, keď je vedľa senzora umiestnených viac ohrievačov."
+    }else if (element === "I2C") {
+        text.innerText = "Vyberte senzor, kliknite pravým tlačidlom myši a vyberte možnosť „Connect“, čím ho pripojíte k zariadeniu Pico. Keď všetko funguje, môžete dosku Pico presunúť a súradnice sa zmenia."
+    }else if (element === "GP2Y0A41SK0F") {
+        text.innerText = "Vyberte senzor, kliknite pravým tlačidlom myši a vyberte možnosť „Connect“, čím ho pripojíte k zariadeniu Pico. Keď všetko funguje, umiestnite „Heating machine“ pod senzor a otestujte, ako funguje."
+    }else if (element === "hall") {
+        text.innerText = "Vyberte senzor, kliknite pravým tlačidlom myši a vyberte možnosť „Connect“, čím ho pripojíte k zariadeniu Pico. Keď všetko funguje, umiestnite „Magnet“ blízko senzora, aby ste ho otestovali."
+    }
+    else {
+        let popup = document.getElementById('tutorial-overlay');
+        popup.innerHTML = '';
+        popup.style.display = 'none';
+    }
+    popup.appendChild(text);
+    let button = document.createElement("button");
+    button.style.display = "flex";
+    button.innerText = "Zatvoriť";
+    button.addEventListener("click", (event) => {
+        let popup = document.getElementById('tutorial-overlay');
+        popup.innerHTML = '';
+        popup.style.display = 'none';
+    })
+    popup.appendChild(button);
+}
+
 function addSensor() {
 
     let sensor_entity = document.createElement('img');
@@ -37,9 +73,10 @@ function addSensor() {
         menu.style.display = "none";
     })
 
-
-
     document.getElementById('lab-area').appendChild(sensor_entity);
+
+    activateAssitant(document.getElementById('sensor-select').value);
+
 }
 
 
@@ -104,6 +141,22 @@ document.addEventListener("mousedown", (e) => {
                 (e.target.id.startsWith("I2C0") && connectingFrom.id.startsWith("pico-20"))
             ){
                 startI2CSensor("I2C0");
+            }
+
+            // GP2Y0A41SK0F distance measurement sensor + Pico detection
+            if (
+                (connectingFrom.id.startsWith("GP2Y0A41SK0F0") && e.target.id.startsWith("pico-20")) ||
+                (e.target.id.startsWith("GP2Y0A41SK0F0") && connectingFrom.id.startsWith("pico-20"))
+            ){
+                startDistanceSensor("GP2Y0A41SK0F0");
+            }
+            // Digital Hall sensor  + Pico detection
+            if (
+                (connectingFrom.id.startsWith("hall0") && e.target.id.startsWith("pico-20")) ||
+                (e.target.id.startsWith("hall0") && connectingFrom.id.startsWith("pico-20"))
+            ){
+                let sensorId = connectingFrom.id.startsWith("hall") ? connectingFrom.id : e.target.id;
+                startHallSimulation(sensorId);
             }
 
 

@@ -239,3 +239,20 @@ textarea {
     50% { background-position: 100% 50%; }
     100% { background-position: 0% 50%; }
 }
+
+
+#tutorial-overlay {
+    position: fixed;
+    top: 25%;
+    left: 25%;
+    width:30%;
+    height:20%;
+    background: #000ecc;
+    padding: 10px;
+    color: white;
+    display: none;
+    align-items:center;
+    justify-content:center;
+    border-radius: 15px;
+
+}

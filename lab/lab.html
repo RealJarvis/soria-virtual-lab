@@ -15,6 +15,7 @@
   <!-- Left: Lab area -->
   <div id="lab-area">
     <a onclick="goBack()" class="back-btn">← Späť</a>
+
     <!--SVG layer for the wires -->
     <svg id="wire-layer"></svg>
 
@@ -42,14 +43,15 @@
 
     <label class="settings-segment" for="sensor-select">Vyberte senzor:</label>
     <select class="settings-segment" id="sensor-select">
+      <option value="pico-2">Pico-2</option>
       <option value="LM35">Analog LM35 Temperature Sensor</option>
       <option value="URM09">URM09 Ultrasonic Distance Sensor</option>
-      <option value="potentiometer">Analog Slide Position</option>
-      <option value="pico-2">Pico-2</option>
       <option value="I2C">I2C Triple Axis Accelerometer</option>
       <option value="hall">Digital Hall Sensor</option>
       <option value="GP2Y0A41SK0F">Distance Measuring Sensor</option>
+      <option value="potentiometer">Analog Slide Position</option>
       <option value="heater">Heating machine</option>
+      <option value="magnet">Magnet</option>
     </select>
 
     <!--This is the custom menu for the right-click-->
@@ -62,12 +64,12 @@
     </div>
 
 
-    <label class="settings-segment" id="object-select">Vyberte object:</label>
+    <!--<label class="settings-segment" id="object-select">Vyberte object:</label>
     <select class="settings-segment" id="object-select-select">
       <option value="Fan" >Fan</option>
 
     </select>
-
+-->
 
     <div class="code-segment">
       <textarea class="code-segment" id="code" rows="5" cols="53"></textarea>
@@ -78,12 +80,17 @@
     <script  src="lab.js"></script>
     <script src="simulation.js"></script>
 
-    <button id="apply-settings" onclick="addSensor()">Použiť nastavenia</button>
+    <button id="apply-settings" onclick="addSensor()">Pridať komponent</button>
+
   </div>
+
 </div>
 
 
-
+<div id="tutorial-overlay">
+  <div class="tutorial-box">
+  </div>
+</div>
 
 </body>
 </html>
