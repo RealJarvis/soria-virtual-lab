@@ -42,11 +42,14 @@
 
     <label class="settings-segment" for="sensor-select">Vyberte senzor:</label>
     <select class="settings-segment" id="sensor-select">
-      <option value="PIR">PIR motion sensor</option>
-      <option value="DHT11">DHT11</option>
+      <option value="LM35">Analog LM35 Temperature Sensor</option>
+      <option value="URM09">URM09 Ultrasonic Distance Sensor</option>
+      <option value="potentiometer">Analog Slide Position</option>
       <option value="pico-2">Pico-2</option>
-      <option value="LED">LED</option>
-      <option value="resistor">Resistor</option>
+      <option value="I2C">I2C Triple Axis Accelerometer</option>
+      <option value="hall">Digital Hall Sensor</option>
+      <option value="GP2Y0A41SK0F">Distance Measuring Sensor</option>
+      <option value="heater">Heating machine</option>
     </select>
 
     <!--This is the custom menu for the right-click-->
@@ -73,6 +76,7 @@
     <!--logic for the connection is in lab.js file -->
     <!--adding the sensors script-->
     <script  src="lab.js"></script>
+    <script src="simulation.js"></script>
 
     <button id="apply-settings" onclick="addSensor()">Použiť nastavenia</button>
   </div>

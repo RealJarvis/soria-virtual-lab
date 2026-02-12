@@ -16,6 +16,7 @@ consoleBox.addEventListener("keydown", function(e) {
     }
 })
 
+
 function defaultCommandHandler(com) {}
 function advancedCommandHandler(com) {}
 

@@ -17,7 +17,7 @@ function addSensor() {
     if (document.getElementById('sensor-select').value === "pico-2") {
         sensor_entity.width = 160;
     }else {
-        sensor_entity.width = 60;
+        sensor_entity.width = 160;
     }
 
 
@@ -51,10 +51,12 @@ function deleteSensor() {
             if (w.sensor1 === selectedSensor || w.sensor2 === selectedSensor) {
                 // we delete the wire as well
                 w.line.remove();
+
                 return false;       // remove from array
             }
             return true;       // remove from array
         })
+        stopSimulation(selectedSensor.id);
         selectedSensor.remove(); /*<-- removes the sensor from the virtual lab*/
         selectedSensor = null;
     }
@@ -82,13 +84,28 @@ document.addEventListener("mousedown", (e) => {
 
             /* TODO simulating the temperature reading*/
 
-            if ((connectingFrom.id === "DHT110" || e.target.id === "DHT110") && (connectingFrom.id === "pico-20" || e.target.id === "pico-20")) {
-                const console = document.getElementById("state-of")
-                const consTXT = document.createElement("p");
-                consTXT.textContent = "/> Temperature: 25";
-
-                setInterval(() => {console.appendChild(consTXT)}, 1000);
+            // URM09 + Pico detection
+            if (
+                (connectingFrom.id.startsWith("URM090") && e.target.id.startsWith("pico-20")) ||
+                (e.target.id.startsWith("URM090") && connectingFrom.id.startsWith("pico-20"))
+            ){
+                startURM09Simulation("URM090");
             }
+            // LM35 temperature sensor detection + Pico detection
+            if (
+                (connectingFrom.id.startsWith("LM350") && e.target.id.startsWith("pico-20")) ||
+                (e.target.id.startsWith("LM350") && connectingFrom.id.startsWith("pico-20"))
+            ){
+                startTemperatureSensor("LM350");
+            }
+            // LM35 temperature sensor detection + Pico detection
+            if (
+                (connectingFrom.id.startsWith("I2C0") && e.target.id.startsWith("pico-20")) ||
+                (e.target.id.startsWith("I2C0") && connectingFrom.id.startsWith("pico-20"))
+            ){
+                startI2CSensor("I2C0");
+            }
+
 
             console.scrollTop = console.scrollHeight;
 
