@@ -2,12 +2,27 @@ let counter = 0
 // sensor the user clicked on
 let connectingFrom = null;         // first sensor selected for wire
 let wires = [];                    // stores all drawn wires
-
+let tutorialState = false
 
 let selectedSensor = null;
+function tutorialSwitch() {
+    const state = document.querySelector(".state")
+    const image = state?.querySelector("img");
+    if (state.id === "ON"){
+        state.id = "OFF";
+        tutorialState = false;
+        image.src = "./../media/tutoroff.png";
+    }else {
+        state.id = "ON";
+        tutorialState = true;
+        image.src = "./../media/tutor.png";
+    }
 
+
+}
 // pop up message which serves as a guid for the lab
 function activateAssitant(element) {
+    if (!tutorialState) return;
     // tutorial logic
     let popup = document.getElementById('tutorial-overlay');
     popup.style.display = "flex";

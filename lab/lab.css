@@ -18,11 +18,38 @@ body {
     cursor: pointer;
 }
 
+#toolbar {
+    position: relative;
+    padding-left: 30px;
+    padding-right: 30px;
+    background-color: #225dc9;
+    display: flex;
+    flex: 0.5;
+    justify-content: space-between;
+    align-items: center;
+}
+#toolbar #buttons img {
+    display: flex;
+    margin: 0;
+    width: 30px;
+    height: 30px;
+    cursor: pointer;
+}
+
+#menubar{
+    display: flex;
+}
+#buttons {
+    display: flex;
+    gap: 20px;
+
+}
+
 .lab-container {
     display: flex;
-    flex: 1;
-    gap: 15px;
-    padding: 20px;
+    flex: 2;
+
+
 }
 
 /*The virtual lab itself*/
@@ -32,7 +59,7 @@ body {
     position: relative;
     /*making the board a transparent */
     background: rgba(6, 13, 30, 0.87);
-    border-radius: 15px;
+    /*border-radius: 15px;*/
 
     justify-content: center;
     align-items: center;
@@ -61,14 +88,15 @@ body {
 
 /*The interface area of the control*/
 .interface {
+
     flex: 0.5;
     position: relative;
-    background: rgba(0, 0, 0, 0.22);
+    background: #1c2740;
     display: flex;
     flex-direction: column;
     padding: 20px;
     gap: 20px;
-    border-radius: 15px;
+    /*border-radius: 15px;*/
     color: white;
 
 }
@@ -85,7 +113,7 @@ body {
     min-height: 175px;
     max-height: 175px;
     width: 415px;
-    border-radius: 23px 0 0 23px;
+    /*border-radius: 23px 0 0 23px;*/
     align-self: center;
     overflow-y: auto;
     overflow-x: hidden;
@@ -174,7 +202,7 @@ body {
 }
 
 .icon-btn.active {
-    background: #3B82F6;          /* blue active background */
+    background: #2e3bf0;        /* blue active background */
     border: none;                 /* no border when active */
 }
 
@@ -212,12 +240,11 @@ body {
     display: none;             /* hidden initially */
     margin-top: 20px;
 
-    border-radius: 12px;
     background: rgba(0, 0, 0, 0.8);
     backdrop-filter: blur(6px);
     align-self: center;
     align-items: center;
-    min-height: 360px;         /* space for code content */
+    min-height: 270px;         /* space for code content */
     color: white;
     font-family: Consolas, monospace;
     overflow-y: auto;

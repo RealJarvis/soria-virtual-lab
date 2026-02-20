@@ -5,6 +5,10 @@ body {
     color: white;
 }
 
+a {
+    cursor: pointer;
+}
+
 .back-btn {
     position: absolute;
     top: 20px;

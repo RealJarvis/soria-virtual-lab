@@ -9,12 +9,19 @@
 
 </head>
 <body>
+<div id="toolbar">
+  <div id="menubar"><a onclick="goBack()" class="back-btn">← Späť</a></div>
 
+  <div id="buttons">
+    <div class="state" id="OFF" onclick="tutorialSwitch()"><img src="./../media/tutoroff.png"></div>
+    <a href="../profile/profile.html"><img id="toolbar_profile" src="../media/avatar.png" alt=""></a>
+  </div>
+</div>
 
 <div class="lab-container">
   <!-- Left: Lab area -->
   <div id="lab-area">
-    <a onclick="goBack()" class="back-btn">← Späť</a>
+
 
     <!--SVG layer for the wires -->
     <svg id="wire-layer"></svg>
