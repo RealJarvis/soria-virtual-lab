@@ -187,7 +187,7 @@ body {
 
 .interface button {
     padding: 10px;
-    border-radius: 10px;
+    border-radius: 8px;
     border: none;
     background: #0072ff;
     color: white;
@@ -195,7 +195,7 @@ body {
     cursor: pointer;
     box-shadow: 0 5px 15px rgba(0, 0, 0, 0.3);
     transition: 0.3s;
-    margin-top: 70px;
+
 }
 
 .interface button:hover {
@@ -213,6 +213,17 @@ body {
     display: flex;
     gap: 90px;
     justify-content: center;
+}
+
+#lab-control {
+    display: flex;
+    flex-direction: row;
+    align-items: center;
+    justify-content: space-between;
+    margin-top: 50px;
+}
+#lab-control img:hover {
+    cursor: pointer;
 }
 
 .icon-btn {

@@ -66,10 +66,12 @@ function addSensor() {
     /*creating a unique ID for each sensor, to be able to drag it later */
     sensor_entity.id = document.getElementById('sensor-select').value + counter;
     sensor_entity.title = "Click on the sensor to drag it around";
+    /*adding the shadow for the sensors to make it appear more realistic*/
+
     if (document.getElementById('sensor-select').value === "pico-2") {
         sensor_entity.width = 160;
     }else {
-        sensor_entity.width = 160;
+        sensor_entity.width = 120;
     }
 
 
@@ -182,6 +184,8 @@ document.addEventListener("mousedown", (e) => {
         connectingFrom.style.outline = "none";
         connectingFrom = null;
         return;
+    }else if (connectingFrom && e.target.tagName !== "IMG"){
+        document.body.style.cursor = "default";
     }
 
     // ordinary clicking logic
@@ -269,6 +273,8 @@ function startConnection() {
     document.body.style.cursor = "crosshair";
     // visual feedback of the chose sensor
     selectedSensor.style.outline = "2px dashed white";
+
+
 }
 
 function getCenter(el) {
@@ -312,6 +318,10 @@ function createWire(sensor1, sensor2) {
     return updateLine;
 }
 
+function resetSettings() {
+    let lab = document.getElementById("lab-area");
+    lab.innerHTML = "";
+}
 
 
 
