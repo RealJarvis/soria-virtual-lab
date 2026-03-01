@@ -4,17 +4,22 @@
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <title >Virtual Lab</title>
-  <link rel="icon" href="../media/sor.png" type="image/x-icon"/>
+  <link rel="icon" href="../media/icon/sor.png" type="image/x-icon"/>
   <link rel="stylesheet" href="lab.css">
 
 </head>
 <body>
+<div id="image-viewer">
+  <img id="schematic-image" />
+</div>
+
 <div id="toolbar">
   <div id="menubar"><a onclick="goBack()" class="back-btn">← Späť</a></div>
 
   <div id="buttons">
-    <div class="state" id="OFF" onclick="tutorialSwitch()"><img src="./../media/tutoroff.png"></div>
-    <a href="../profile/profile.html"><img id="toolbar_profile" src="../media/avatar.png" alt=""></a>
+    <div class="settings-btn"><img src="../media/icon/settings.png"></div>
+    <div class="state" id="OFF" onclick="tutorialSwitch()"><img src="../media/icon/tutoroff.png"></div>
+    <a href="../profile/profile.html"><img id="toolbar_profile" src="../media/icon/avatar.png" alt=""></a>
   </div>
 </div>
 
@@ -48,18 +53,7 @@
 
     </div>
 
-    <label class="settings-segment" for="sensor-select">Vyberte senzor:</label>
-    <select class="settings-segment" id="sensor-select">
-      <option value="pico-2">Pico-2</option>
-      <option value="LM35">Analog LM35 Temperature Sensor</option>
-      <option value="URM09">URM09 Ultrasonic Distance Sensor</option>
-      <option value="I2C">I2C Triple Axis Accelerometer</option>
-      <option value="hall">Digital Hall Sensor</option>
-      <option value="GP2Y0A41SK0F">Distance Measuring Sensor</option>
-      <option value="potentiometer">Analog Slide Position</option>
-      <option value="heater">Heating machine</option>
-      <option value="magnet">Magnet</option>
-    </select>
+
 
     <!--This is the custom menu for the right-click-->
     <div id="custom-menu">
@@ -69,7 +63,15 @@
       <div class="menu-item" onclick="startConnection()">Connect</div>
 
     </div>
+    <!--The information panel once the user clicked on the Info button-->
+    <div id="information-panel">
+      <div class="close-button" onclick="closeInfoPanel()">❌️</div>
+      <div class="info-button" onclick="openImage()">Show schematics</div>
+      <div class="info-button">Data</div>
+      <div class="info-button">About device</div>
 
+    </div>
+    <script src="rightclick.js" ></script>
 
     <!--<label class="settings-segment" id="object-select">Vyberte object:</label>
     <select class="settings-segment" id="object-select-select">
@@ -87,7 +89,23 @@
     <script  src="lab.js"></script>
     <script src="simulation.js"></script>
 
+  <div id="usercontrol" class="interface">
+
+    <label class="settings-segment" for="sensor-select">Vyberte senzor:</label>
+    <select class="settings-segment" id="sensor-select">
+      <option value="pico-2">Pico-2</option>
+      <option value="LM35">Analog LM35 Temperature Sensor</option>
+      <option value="URM09">URM09 Ultrasonic Distance Sensor</option>
+      <option value="I2C">I2C Triple Axis Accelerometer</option>
+      <option value="hall">Digital Hall Sensor</option>
+      <option value="GP2Y0A41SK0F">Distance Measuring Sensor</option>
+      <option value="potentiometer">Analog Slide Position</option>
+      <option value="heater">Heating machine</option>
+      <option value="magnet">Magnet</option>
+    </select>
+
     <button id="apply-settings" onclick="addSensor()">Pridať komponent</button>
+  </div>
 
   </div>
 

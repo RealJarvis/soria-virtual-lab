@@ -4,18 +4,19 @@ let connectingFrom = null;         // first sensor selected for wire
 let wires = [];                    // stores all drawn wires
 let tutorialState = false
 
-let selectedSensor = null;
+// declaring the global variable for the clicked sensor
+window.selectedSensor = null;
 function tutorialSwitch() {
     const state = document.querySelector(".state")
     const image = state?.querySelector("img");
     if (state.id === "ON"){
         state.id = "OFF";
         tutorialState = false;
-        image.src = "./../media/tutoroff.png";
+        image.src = "./../media/icon/tutoroff.png";
     }else {
         state.id = "ON";
         tutorialState = true;
-        image.src = "./../media/tutor.png";
+        image.src = "./../media/icon/tutor.png";
     }
 
 
@@ -60,7 +61,7 @@ function activateAssitant(element) {
 function addSensor() {
 
     let sensor_entity = document.createElement('img');
-    sensor_entity.src = '../media/' + document.getElementById('sensor-select').value + '.png';
+    sensor_entity.src = '../media/icon/' + document.getElementById('sensor-select').value + '.png';
     sensor_entity.alt = document.getElementById('sensor-select').value;
     /*creating a unique ID for each sensor, to be able to drag it later */
     sensor_entity.id = document.getElementById('sensor-select').value + counter;
@@ -77,7 +78,7 @@ function addSensor() {
     sensor_entity.addEventListener('contextmenu', (event) => {
         event.preventDefault();
 
-        selectedSensor = event.target;
+        window.selectedSensor = event.target;
         menu.style.top = event.pageY + "px";
         menu.style.left = event.pageX + "px";
         menu.style.display = "block";
@@ -110,7 +111,7 @@ function deleteSensor() {
         })
         stopSimulation(selectedSensor.id);
         selectedSensor.remove(); /*<-- removes the sensor from the virtual lab*/
-        selectedSensor = null;
+        window.selectedSensor = null;/*TODO this was changed during this iteration*/
     }
 }
 
@@ -183,8 +184,6 @@ document.addEventListener("mousedown", (e) => {
         return;
     }
 
-
-
     // ordinary clicking logic
     if (e.target.tagName === "IMG") {
         draggedEl = e.target;
@@ -201,7 +200,6 @@ document.addEventListener("mousedown", (e) => {
 document.addEventListener("mouseup", () => {
     draggedEl.style.cursor = "grab";
     document.body.style.cursor = "default";
-
     draggedEl = null;
 
 })
@@ -315,7 +313,5 @@ function createWire(sensor1, sensor2) {
 }
 
 
-function findSensorInfo() {
-    window.location.href = "../materials/materials.html"
-}
+
 
