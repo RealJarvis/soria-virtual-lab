@@ -1,5 +1,5 @@
 body {
-    background-color: #1A1F70;
+    background: #07152C;
     margin: 0;
     height: 100vh;
     display: flex;
@@ -7,6 +7,19 @@ body {
     min-height: 100vh;
 
 }
+
+.back-btn {
+    position: absolute;
+    top: 20px;
+    left: 20px;
+    color: #fff;
+    text-decoration: none;
+}
+
+.back-btn:hover {
+    cursor: pointer;
+}
+
 .main-structure {
     display: flex;
     flex-direction: column;
@@ -56,7 +69,7 @@ body {
 
 
 .theory-section, .quiz-section{
-    background-color: rgba(45, 83, 124, 0.92);
+    background: #1c2740;
     margin: 20px;
     padding: 20px;
     display: flex;
@@ -94,6 +107,15 @@ body {
     cursor: pointer;
     width: 200px;
     height: 50px;
+    font-family: monospace;
+}
+
+.quiz-section button:hover {
+    background: linear-gradient(135deg, #3000a6, #000ecc);
+}
+
+.learn-btns {
+    text-decoration: none;
 }
 
 

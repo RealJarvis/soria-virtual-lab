@@ -9,10 +9,11 @@
     <link rel="icon" href="../media/icon/sor.png" type="image/x-icon"/>
 </head>
 <body>
-    <div class="main-structure">
-       
-        <div class="search_btn">
 
+    <div class="main-structure">
+
+        <div class="search_btn">
+            <div id="menubar"><a onclick="goBack()" class="back-btn">← Späť</a></div>
             <label>
                 <input type="text" placeholder="Hľadať..">
             </label>
@@ -31,13 +32,18 @@
 
             <div class="quiz-section">
                 <h2>Quizzes</h2>
-                <button>Start Quiz</button>
-                <button>View Results</button>
+                <a class="learn-btns" href="../quiz/quiz.html"><button>Start Quiz</button></a>
+                <a class="learn-btns" href="../materials/materials.html"><button>Learn</button></a>
+
             </div>
         </div>
     </div>
 
-
+    <script>
+        function goBack() {
+            window.history.back();
+        }
+    </script>
 
 
 </body>
