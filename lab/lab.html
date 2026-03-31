@@ -44,15 +44,21 @@
   <!-- Right: Controls -->
   <div class="interface">
     <!--Switch between the code and the settings for the sensors-->
-    <div id="interface-buttons">
-      <div class="icon-btn active" data-type="settings" onclick="switchMenu(this)"><h1>⚙️</h1></div>
-      <div class="icon-btn" data-type="code" onclick="switchMenu(this)"><h1>🧑🏻‍💻</h1></div>
+
+    <div class="tab-wrapper">
+      <div id="interface-buttons" class="tabs">
+        <div class="tab active" data-type="settings" onclick="switchMenu(this)">Logs</div>
+        <div class="tab" data-type="code" onclick="switchMenu(this)">Console</div>
+
+        <!-- CONTENT -->
+      </div>
+      <div id="state-of" class="settings-segment"></div>
+
+      <div class="code-segment">
+        <textarea class="code-segment" id="code" rows="5" cols="53"></textarea>
+        <script src="console.js"></script>
+      </div>
     </div>
-
-    <div id="state-of" class="settings-segment">
-
-    </div>
-
 
 
     <!--This is the custom menu for the right-click-->
@@ -80,10 +86,7 @@
     </select>
 -->
 
-    <div class="code-segment">
-      <textarea class="code-segment" id="code" rows="5" cols="53"></textarea>
-      <script src="console.js"></script>
-    </div>
+
     <!--logic for the connection is in lab.js file -->
     <!--adding the sensors script-->
     <script  src="lab.js"></script>
@@ -93,6 +96,7 @@
 
     <label class="settings-segment" for="sensor-select">Vyberte senzor:</label>
     <select class="settings-segment" id="sensor-select">
+      <option value="uno">Arduino Uno</option>
       <option value="pico-2">Pico-2</option>
       <option value="LM35">Analog LM35 Temperature Sensor</option>
       <option value="URM09">URM09 Ultrasonic Distance Sensor</option>
@@ -102,6 +106,7 @@
       <option value="potentiometer">Analog Slide Position</option>
       <option value="heater">Heating machine</option>
       <option value="magnet">Magnet</option>
+
     </select>
 
     <div id="lab-control">

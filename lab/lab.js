@@ -68,8 +68,8 @@ function addSensor() {
     sensor_entity.title = "Click on the sensor to drag it around";
     /*adding the shadow for the sensors to make it appear more realistic*/
 
-    if (document.getElementById('sensor-select').value === "pico-2") {
-        sensor_entity.width = 160;
+    if (document.getElementById('sensor-select').value === "uno"){
+        sensor_entity.width = 230;
     }else {
         sensor_entity.width = 120;
     }
@@ -220,12 +220,13 @@ document.addEventListener("mousemove", (e) => {
 
     draggedEl.style.left = Math.max(0, Math.min(x, rect.width - draggedEl.width / 2)) + "px";
     draggedEl.style.top = Math.max(0, Math.min(y, rect.height - draggedEl.height / 2)) + "px";
+    wires.forEach(w => w.updateLine());
 
 })
 
 /*Function used to switch through coding and environmental settings */
 function switchMenu(btn) {
-   const buttons = document.querySelectorAll('.icon-btn');
+   const buttons = document.querySelectorAll('.tab');
 
    buttons.forEach(b => {
        // if it's the same button, we make it active

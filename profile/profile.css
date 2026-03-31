@@ -118,10 +118,16 @@ a {
 }
 
 .nav-btn {
-    background: #3b5bfd;
+    background: #2e3bf0;
     color: white;
     text-decoration: none;
     padding: 14px;
     text-align: center;
     border-radius: 10px;
+    transition: 0.3s;
+    box-shadow: 0 4px 12px rgba(0, 0, 0, 0.45);
+}
+
+.nav-btn:hover {
+    background: linear-gradient(135deg, #3000a6, #000ecc);
 }
