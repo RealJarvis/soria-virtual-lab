@@ -353,3 +353,6 @@ function startHallSimulation(sensorId) {
     runningSimulations[sensorId] = intervalId;
 }
 
+
+
+

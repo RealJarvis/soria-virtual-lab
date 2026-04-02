@@ -4,6 +4,10 @@ let connectingFrom = null;         // first sensor selected for wire
 let wires = [];                    // stores all drawn wires
 let tutorialState = false
 
+// variable serve to save the position where users clicked on the sensor
+let offsetX = 0;
+let offsetY = 0;
+
 // declaring the global variable for the clicked sensor
 window.selectedSensor = null;
 function tutorialSwitch() {
@@ -60,19 +64,35 @@ function activateAssitant(element) {
 
 function addSensor() {
 
+    // the variable bellow serves a purpose of keeping the sensor image and its pins in it
+    let sensor_container = document.createElement("div");
+
+    sensor_container.className = "sensor";
     let sensor_entity = document.createElement('img');
+
+
     sensor_entity.src = '../media/icon/' + document.getElementById('sensor-select').value + '.png';
     sensor_entity.alt = document.getElementById('sensor-select').value;
     /*creating a unique ID for each sensor, to be able to drag it later */
-    sensor_entity.id = document.getElementById('sensor-select').value + counter;
+
+    let value = document.getElementById('sensor-select').value;
+    let sensorId = value + counter;
+    counter++;
+    sensor_container.id = sensorId;
+    sensor_entity.id = sensorId + "-img";
+
     sensor_entity.title = "Click on the sensor to drag it around";
     /*adding the shadow for the sensors to make it appear more realistic*/
 
     if (document.getElementById('sensor-select').value === "uno"){
-        sensor_entity.width = 230;
+        sensor_entity.width = 250;
     }else {
         sensor_entity.width = 120;
     }
+
+    sensor_container.appendChild(sensor_entity);
+
+    pinArrange(sensor_container, value);
 
 
     /*CUSTOM RIGHT-CLICK HANDLER*/
@@ -80,7 +100,7 @@ function addSensor() {
     sensor_entity.addEventListener('contextmenu', (event) => {
         event.preventDefault();
 
-        window.selectedSensor = event.target;
+        window.selectedSensor = sensor_container;
         menu.style.top = event.pageY + "px";
         menu.style.left = event.pageX + "px";
         menu.style.display = "block";
@@ -91,7 +111,7 @@ function addSensor() {
         menu.style.display = "none";
     })
 
-    document.getElementById('lab-area').appendChild(sensor_entity);
+    document.getElementById('lab-area').appendChild(sensor_container);
 
     activateAssitant(document.getElementById('sensor-select').value);
 
@@ -103,7 +123,10 @@ function deleteSensor() {
     if (selectedSensor) {
         wires = wires.filter(w => {
             // if the wire is connected to the sensor we're deleting,
-            if (w.sensor1 === selectedSensor || w.sensor2 === selectedSensor) {
+            if (
+                w.pin1.closest(".sensor") === selectedSensor ||
+                w.pin2.closest(".sensor") === selectedSensor
+            ) {
                 // we delete the wire as well
                 w.line.remove();
 
@@ -125,72 +148,22 @@ let lab = document.getElementById('lab-area');
 let draggedEl = null;
 
 document.addEventListener("mousedown", (e) => {
+    const clickedPin = e.target.closest(".pin");
 
-    // updated click logic when a user connect two sensors
-    if (connectingFrom && e.target.tagName === "IMG") {
-        if(connectingFrom !== e.target) {
-            createWire(connectingFrom, e.target);
-            document.body.style.cursor = "default";
-            const console = document.getElementById("state-of")
-            let connecttxt = document.createElement("p");
-            connecttxt.innerText = `/> ${connectingFrom.id} has been connected to ${e.target.id}`;
-            console.appendChild(connecttxt);
-            /*autoscroll*/
+    if (clickedPin) return; //  prevent drag when clicking pin
+    // container element
+    const clickedSensor = e.target.closest(".sensor");
 
-            /* TODO simulating the temperature reading*/
-
-            // URM09 + Pico detection
-            if (
-                (connectingFrom.id.startsWith("URM090") && e.target.id.startsWith("pico-20")) ||
-                (e.target.id.startsWith("URM090") && connectingFrom.id.startsWith("pico-20"))
-            ){
-                startURM09Simulation("URM090");
-            }
-            // LM35 temperature sensor detection + Pico detection
-            if (
-                (connectingFrom.id.startsWith("LM350") && e.target.id.startsWith("pico-20")) ||
-                (e.target.id.startsWith("LM350") && connectingFrom.id.startsWith("pico-20"))
-            ){
-                startTemperatureSensor("LM350");
-            }
-            // LM35 temperature sensor detection + Pico detection
-            if (
-                (connectingFrom.id.startsWith("I2C0") && e.target.id.startsWith("pico-20")) ||
-                (e.target.id.startsWith("I2C0") && connectingFrom.id.startsWith("pico-20"))
-            ){
-                startI2CSensor("I2C0");
-            }
-
-            // GP2Y0A41SK0F distance measurement sensor + Pico detection
-            if (
-                (connectingFrom.id.startsWith("GP2Y0A41SK0F0") && e.target.id.startsWith("pico-20")) ||
-                (e.target.id.startsWith("GP2Y0A41SK0F0") && connectingFrom.id.startsWith("pico-20"))
-            ){
-                startDistanceSensor("GP2Y0A41SK0F0");
-            }
-            // Digital Hall sensor  + Pico detection
-            if (
-                (connectingFrom.id.startsWith("hall0") && e.target.id.startsWith("pico-20")) ||
-                (e.target.id.startsWith("hall0") && connectingFrom.id.startsWith("pico-20"))
-            ){
-                let sensorId = connectingFrom.id.startsWith("hall") ? connectingFrom.id : e.target.id;
-                startHallSimulation(sensorId);
-            }
-
-
-            console.scrollTop = console.scrollHeight;
-
-        }
-        connectingFrom.style.outline = "none";
-        connectingFrom = null;
-        return;
-    }else if (connectingFrom && e.target.tagName !== "IMG"){
-        document.body.style.cursor = "default";
-    }
 
     // ordinary clicking logic
-    if (e.target.tagName === "IMG") {
-        draggedEl = e.target;
+    if (clickedSensor) {
+        draggedEl = clickedSensor;
+
+        const rect = draggedEl.getBoundingClientRect();
+
+        offsetX = e.clientX - rect.left;
+        offsetY = e.clientY - rect.top;
+
         draggedEl.style.cursor = "grabbing";
         document.body.style.cursor = "grabbing";
 
@@ -202,6 +175,7 @@ document.addEventListener("mousedown", (e) => {
 });
 
 document.addEventListener("mouseup", () => {
+    if (!draggedEl) return;
     draggedEl.style.cursor = "grab";
     document.body.style.cursor = "default";
     draggedEl = null;
@@ -215,11 +189,12 @@ document.addEventListener("mousemove", (e) => {
     let rect = lab.getBoundingClientRect(); // lab area
 
     // calculating the boundaries where I want to move the in
-    let x = e.clientX - rect.left - draggedEl.width / 2;
-    let y = e.clientY - rect.top - draggedEl.height / 2;
+    let x = e.clientX - rect.left - offsetX;
+    let y = e.clientY - rect.top - offsetY;
 
-    draggedEl.style.left = Math.max(0, Math.min(x, rect.width - draggedEl.width / 2)) + "px";
-    draggedEl.style.top = Math.max(0, Math.min(y, rect.height - draggedEl.height / 2)) + "px";
+    // movement boundries
+    draggedEl.style.left = Math.max(0, Math.min(x, rect.width - draggedEl.offsetWidth)) + "px";
+    draggedEl.style.top = Math.max(0, Math.min(y, rect.height - draggedEl.offsetHeight)) + "px";
     wires.forEach(w => w.updateLine());
 
 })
@@ -263,24 +238,83 @@ function switchMenu(btn) {
 }
 
 
+function handleSimulation(sensor1, sensor2) {
+    if (
+        (sensor1.id.startsWith("LM35") && sensor2.id.startsWith("pico-2")) ||
+        (sensor2.id.startsWith("LM35") && sensor1.id.startsWith("pico-2"))
+    ){
+        startTemperatureSensor("LM35");
+    }
+
+    if (
+        (sensor1.id.startsWith("URM09") && sensor2.id.startsWith("pico-2")) ||
+        (sensor2.id.startsWith("URM09") && sensor1.id.startsWith("pico-2"))
+    ){
+        startURM09Simulation("URM09");
+    }
+
+    if (
+        (sensor1.id.startsWith("hall") && sensor2.id.startsWith("pico-2")) ||
+        (sensor2.id.startsWith("hall") && sensor1.id.startsWith("pico-2"))
+    ){
+        let sensorId = sensor1.id.startsWith("hall") ? sensor1.id : sensor2.id;
+        startHallSimulation(sensorId);
+    }
+}
 
 /*NOTE----------------------------------------------------------------------------------Logic for the wires is here*/
 
-function startConnection() {
-    if (!selectedSensor) return;
+// current segemnt of the code is used to connect specific pins
+document.getElementById("lab-area").addEventListener("click", (e) => {
+    // using event delegation to attach the work of a parent to a child which is the pin class
+    const pin = e.target.closest(".pin");
+    if (!pin) {
+        if (connectingFrom) {
+            connectingFrom.style.outline = "none";
+            connectingFrom = null;
+            document.body.style.cursor = "default";
+        }
+        return;
+    }
 
-    // assigning the selectedSensor to the one which has the main connection
-    connectingFrom = selectedSensor;
-    document.body.style.cursor = "crosshair";
-    // visual feedback of the chose sensor
-    selectedSensor.style.outline = "2px dashed white";
+
+    const sensor = pin.closest(".sensor");
+
+    if (connectingFrom && connectingFrom !== pin) {
+
+        if (isPinUsed(connectingFrom) || isPinUsed(pin)) {
+            printOnConsole("❗This pin is already connected");
+            connectingFrom.style.outline = "none";
+            connectingFrom = null;
+            document.body.style.cursor = "default";
+            return;
+        }
+        createWire(connectingFrom, pin);
+
+        const sensor1 = connectingFrom.closest(".sensor");
+        const sensor2 = pin.closest(".sensor");
+
+        handleSimulation(sensor1, sensor2);
+
+        connectingFrom.style.outline = "none";
+        connectingFrom = null;
+        document.body.style.cursor = "default";
 
 
-}
+    } else {
+        connectingFrom = pin;
 
-function getCenter(el) {
+        sensor.style.outline = "2px dashed white";
+        document.body.style.cursor = "crosshair";
+    }
+
+    console.log("clicked pin", pin.dataset.pin);
+
+});
+
+function getPinCenter(pin) {
     //Get the sensor position on the screen
-    const r = el.getBoundingClientRect();
+    const r = pin.getBoundingClientRect();
     //Get the lab area position on the screen
     const lab = document.getElementById("lab-area").getBoundingClientRect();
     return {
@@ -289,30 +323,43 @@ function getCenter(el) {
     };
 }
 
-function createWire(sensor1, sensor2) {
-
+function createWire(pin1, pin2) {
+    pinControler(pin1, pin2);
     const wireLayer = document.getElementById('wire-layer');
 
-    const line = document.createElementNS('http://www.w3.org/2000/svg', 'line');
+    const line = document.createElementNS('http://www.w3.org/2000/svg', 'polyline');
     /*setting attributes for the SVG*/
-    line.setAttribute('stroke', "#2fff00");
+    if (pin1.dataset.pin === "GND" && pin2.dataset.pin === "GND") {
+        line.setAttribute('stroke', "#ff0000");
+    }else {
+        line.setAttribute('stroke', "#f5f5f5");
+    }
+
     line.setAttribute('stroke-width', '3')
-    line.setAttribute('stroke-linecap', 'round');
+    line.setAttribute('fill', 'none');
 
     wireLayer.appendChild(line);
 
     function updateLine() {
-        const p1 = getCenter(sensor1);
-        const p2 = getCenter(sensor2);
-        line.setAttribute('x1', p1.x);
-        line.setAttribute('y1', p1.y);
-        line.setAttribute('x2', p2.x);
-        line.setAttribute('y2', p2.y);
+        const p1 = getPinCenter(pin1);
+        const p2 = getPinCenter(pin2);
+
+        // midpoint X (horizontal first, then vertical)
+        const midX = (p1.x + p2.x) / 2;
+
+        const points = [
+            `${p1.x},${p1.y}`,
+            `${midX},${p1.y}`,
+            `${midX},${p2.y}`,
+            `${p2.x},${p2.y}`
+        ].join(" ");
+
+        line.setAttribute('points', points);
     }
 
     updateLine(); // draw now
 
-    wires.push({ line, sensor1, sensor2, updateLine });
+    wires.push({ line, pin1, pin2, updateLine });
 
 
     // return update function so dragging can trigger it

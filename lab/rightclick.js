@@ -1,6 +1,7 @@
 /*should work for the modular design of the virtual laboratory*/
 const sensorSchematics = {
     "pico-": "../media/info/picoschem.jpg",
+    "uno": "../media/info/unoschem.jpg",
 
 };
 

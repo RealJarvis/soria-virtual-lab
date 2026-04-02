@@ -49,6 +49,8 @@
       <div id="interface-buttons" class="tabs">
         <div class="tab active" data-type="settings" onclick="switchMenu(this)">Logs</div>
         <div class="tab" data-type="code" onclick="switchMenu(this)">Console</div>
+        <div class="tab" data-type="devices" onclick="switchMenu(this)">Devices</div>
+        <div class="tab" data-type="errors" onclick="switchMenu(this)">Errors</div>
 
         <!-- CONTENT -->
       </div>
@@ -58,34 +60,21 @@
         <textarea class="code-segment" id="code" rows="5" cols="53"></textarea>
         <script src="console.js"></script>
       </div>
+
+      <div id="devices-list" class="devices-segment"></div>
+
     </div>
 
 
     <!--This is the custom menu for the right-click-->
     <div id="custom-menu">
-      <div class="menu-item">Rotate</div>
       <div class="menu-item" onclick="deleteSensor()">Delete</div>
-      <div class="menu-item" onclick="findSensorInfo()">Info</div>
-      <div class="menu-item" onclick="startConnection()">Connect</div>
-
+      <div class="menu-item" onclick="openImage()">Show schematics</div>
+      <div class="menu-item" onclick="findSensorInfo()">Learn about</div>
     </div>
-    <!--The information panel once the user clicked on the Info button-->
-    <div id="information-panel">
-      <div class="close-button" onclick="closeInfoPanel()">❌️</div>
-      <div class="info-button" onclick="openImage()">Show schematics</div>
-      <div class="info-button">Data</div>
-      <div class="info-button">About device</div>
 
-    </div>
     <script src="rightclick.js" ></script>
-
-    <!--<label class="settings-segment" id="object-select">Vyberte object:</label>
-    <select class="settings-segment" id="object-select-select">
-      <option value="Fan" >Fan</option>
-
-    </select>
--->
-
+    <script src="pins.js" ></script>
 
     <!--logic for the connection is in lab.js file -->
     <!--adding the sensors script-->
@@ -106,7 +95,6 @@
       <option value="potentiometer">Analog Slide Position</option>
       <option value="heater">Heating machine</option>
       <option value="magnet">Magnet</option>
-
     </select>
 
     <div id="lab-control">

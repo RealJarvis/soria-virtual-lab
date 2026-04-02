@@ -290,6 +290,7 @@ body {
     overflow-y: auto;
 }
 
+
 .code-segment textarea {
     resize: none;
     border-radius: 0 0 8px 8px;
@@ -323,37 +324,39 @@ body {
     border-radius: 15px;
 }
 
-#information-panel {
-    position: fixed;
-    top: 25%;
-    left: 25%;
-    width: 15%;
-    height:30%;
-    background: #ffffff;
 
-    color: rgba(0, 0, 0, 0.8);
-    display: none;
-    flex-direction: column;
-    align-items: flex-start;
-    justify-content:center;
-    border-radius: 15px;
-    padding: 15px;
-    z-index: 1000;
+.sensor {
+    position: absolute;
+    display: inline-block;
+
+    width: fit-content;
+    height: fit-content;
+
 }
 
-.info-button {
-    padding: 8px 12px;
-    color: rgba(0, 0, 0, 0.8);
-    cursor: pointer;
-    border-radius: 6px;
-}
-.info-button:hover {
-    background: rgb(121, 121, 128);
+.sensor img {
+    display: block;
+
 }
 
-.close-button {
-    align-self: flex-end;
+.pin {
+    position: absolute;
+    width: 10px;
+    height: 10px;
+    background: rgba(255, 0, 0, 0);
+    border-radius: 50%;
+    border: 1px solid white;
 }
-.close-button:hover {
-    cursor: pointer;
+
+.pin:hover {
+    cursor: crosshair;
+    transform: scale(1.3);
+}
+
+.pin-label {
+    position: absolute;
+    font-size: 8px;
+    left: 15px;
+    white-space: nowrap;
+    transform: translateY(-120%);
 }
