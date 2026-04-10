@@ -19,6 +19,37 @@ function selectComponent(card) {
     document.getElementById('sensor-select').value = card.dataset.value;
 }
 
+function adjustScroll(btn) {
+    // getting the tabs
+   const buttons = document.querySelectorAll('#sensorscroller-buttons .tab');
+   // getting the image
+   const cards = document.querySelectorAll('#component-scroller .component-card');
+
+    buttons.forEach(b => {
+        if (b === btn) {
+            b.classList.add('active');
+            b.classList.remove('disabled');
+        } else {
+            b.classList.remove('active');
+            b.classList.add('disabled');
+        }
+    });
+
+    const type = btn.dataset.type;
+
+    cards.forEach(card => {
+        if (type === "everything") {
+            card.style.display = 'flex';
+        }else if (type === "sensors") {
+            card.style.display = card.classList.contains("snimace") ? 'flex' : 'none';
+        }else if (type === "objects") {
+            card.style.display = card.classList.contains("objekty") ? 'flex' : 'none';
+        }else if (type === "microcontoller") {
+            card.style.display = card.classList.contains("doska") ? 'flex' : 'none';
+        }
+    })
+}
+
 // declaring the global variable for the clicked sensor
 window.selectedSensor = null;
 function tutorialSwitch() {
@@ -258,6 +289,13 @@ function switchMenu(btn) {
    })
 }
 
+function getConnectedBoard(sensor1, sensor2) {
+    if (sensor1.id.startsWith("pico-2")) return sensor1;
+    if (sensor2.id.startsWith("pico-2")) return sensor2;
+    if (sensor1.id.startsWith("uno")) return sensor1;
+    if (sensor2.id.startsWith("uno")) return sensor2;
+    return null;
+}
 
 function switchMode(btn) {
     const buttons = document.querySelectorAll('.controller-tab');
@@ -271,7 +309,15 @@ function switchMode(btn) {
                 wires.forEach(w => {
                     const sensor1 = w.pin1.closest(".sensor");
                     const sensor2 = w.pin2.closest(".sensor");
-                    handleSimulation(sensor1, sensor2);
+                    const board = getConnectedBoard(sensor1, sensor2);
+
+                    if (board) {
+                        if (board.id.startsWith("pico-2")) {
+                            handleSimulationPICO(sensor1, sensor2);
+                        } else if (board.id.startsWith("uno")) {
+                            handleSimulationUNO(sensor1, sensor2);
+                        }
+                    }
                 });
             }// if the button's data is the settings then enable it
             else {
@@ -342,6 +388,7 @@ function updatePowerConnection(sensor1, sensor2) {
 
 /*NOTE----------------------------------------------------------------------------------Logic for the wires is here*/
 
+
 // current segemnt of the code is used to connect specific pins
 document.getElementById("lab-area").addEventListener("click", (e) => {
     // using event delegation to attach the work of a parent to a child which is the pin class
@@ -373,7 +420,15 @@ document.getElementById("lab-area").addEventListener("click", (e) => {
         const sensor2 = pin.closest(".sensor");
         updatePowerConnection(sensor1, sensor2);
 
-        handleSimulation(sensor1, sensor2);
+        const board = getConnectedBoard(sensor1, sensor2);
+
+        if (board) {
+            if (board.id.startsWith("pico-2")) {
+                handleSimulationPICO(sensor1, sensor2);
+            } else if (board.id.startsWith("uno")) {
+                handleSimulationUNO(sensor1, sensor2);
+            }
+        }
 
         connectingFrom.style.outline = "none";
         connectingFrom = null;
@@ -413,7 +468,11 @@ function createWire(pin1, pin2) {
     }else if(pin1.dataset.pin === "VCC" && pin2.dataset.pin === "3V3" ||
         pin1.dataset.pin === "3V3" && pin2.dataset.pin === "VCC") {
         line.setAttribute('stroke', "#11e004");
-    }else {
+    }else if(pin1.dataset.pin === "USB" && pin2.dataset.pin === "USB") {
+        line.setAttribute('stroke', "#03efda");
+        line.setAttribute('stroke-width', "17");
+    }
+    else {
         line.setAttribute('stroke', "#f5f5f5");
     }
 
@@ -451,6 +510,16 @@ function createWire(pin1, pin2) {
 function resetSettings() {
     let lab = document.getElementById("lab-area");
     lab.innerHTML = "";
+    // stop all running simulations
+
+    runningSimulations = {};
+
+    wires.forEach(w => {
+        if (w.line) w.line.remove();
+    });
+    wires = [];
+
+
 }
 
 

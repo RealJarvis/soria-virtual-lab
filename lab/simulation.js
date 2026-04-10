@@ -59,7 +59,7 @@ function getHeaters(){
 }
 
 //TODO the simulation will not stop automatically if the sensor was connected to Arduino
-function startURM09Simulation(sensorId){
+function startURM09Simulation(sensorId, boardId){
 
     if(runningSimulations[sensorId]) return; // prevent duplicates
 
@@ -69,15 +69,15 @@ function startURM09Simulation(sensorId){
 
 
         const urm09 = document.getElementById(sensorId);
-        const pico = document.querySelector('[id^="pico-2"]');
+        const board = document.getElementById(boardId);
 
         // code logic for stopping the sensor
-        if (!urm09) {
+        if (!urm09 || !board) {
             stopSimulation(sensorId);
             return;
         }
 
-        if (!isBoardPowered(pico)) {
+        if (!isBoardPowered(board)) {
             stopSimulation(sensorId);
             return;
         }
@@ -172,47 +172,43 @@ function calculateTemperature(sensor){
 }
 
 //TODO the simulation will not stop automatically if the sensor was connected to Arduino
-function startTemperatureSensor(sensorId) {
-    if(runningSimulations[sensorId]) return;
+function startTemperatureSensor(sensorId, boardId) {
+    if (runningSimulations[sensorId]) return;
 
     printOnConsole(sensorId + " temperature sensor started");
 
-    let intervalId = setInterval(()=>{
-
+    const intervalId = setInterval(() => {
         const sensor = document.getElementById(sensorId);
-        const pico = document.querySelector('[id^="pico-2"]');
-        // stop if deleted
-        if(!sensor){
+        const board = document.getElementById(boardId);
+
+        if (!sensor || !board) {
             stopSimulation(sensorId);
             return;
         }
 
-        if (!isBoardPowered(pico)) {
+        if (!isBoardPowered(board)) {
             stopSimulation(sensorId);
             return;
         }
 
         const temperature = calculateTemperature(sensor);
-
         printOnConsole("Temperature: " + temperature + " °C");
-
     }, 2000);
 
     runningSimulations[sensorId] = intervalId;
-
 }
 
 
 /* TODO this is the code made for the I2C triple axis accelerometer  */
 
-function getPicoTilt(){
+function getBoardTilt(boardId){
 
-    const pico = document.querySelector('[id^="pico"]');
+    const board = document.getElementById(boardId);
     const lab  = document.getElementById("lab-area");
 
-    if(!pico) return {x:0, y:0, z:9.8};
+    if(!board) return {x:0, y:0, z:9.8};
 
-    const p = pico.getBoundingClientRect();
+    const p = board.getBoundingClientRect();
     const l = lab.getBoundingClientRect();
 
     // normalize position 0 → 1 inside lab
@@ -232,7 +228,7 @@ function getPicoTilt(){
 }
 
 //TODO the simulation will not stop automatically if the sensor was connected to Arduino
-function startI2CSensor(sensorId) {
+function startI2CSensor(sensorId, boardId) {
 
     if(runningSimulations[sensorId]) return;
 
@@ -241,18 +237,19 @@ function startI2CSensor(sensorId) {
     let intervalId = setInterval(()=>{
 
         const sensor = document.getElementById(sensorId);
-        const pico = document.querySelector('[id^="pico-2"]');
-        if(!sensor){
+        const board = document.getElementById(boardId);
+
+        if(!sensor || !board){
             stopSimulation(sensorId);
             return;
         }
 
-        if (!isBoardPowered(pico)) {
+        if (!isBoardPowered(board)) {
             stopSimulation(sensorId);
             return;
         }
 
-        const tilt = getPicoTilt();
+        const tilt = getBoardTilt(boardId);
 
         printOnConsole(
             `Accel X:${tilt.x}  Y:${tilt.y}  Z:${tilt.z} m/s²`
@@ -289,7 +286,7 @@ function getInfraredDistance(sensor, object){
 }
 
 //TODO the simulation will not stop automatically if the sensor was connected to Arduino
-function startDistanceSensor(sensorId) {
+function startDistanceSensor(sensorId, boardId) {
 
     if(runningSimulations[sensorId]) return;
 
@@ -298,13 +295,13 @@ function startDistanceSensor(sensorId) {
     let intervalId = setInterval(()=>{
 
         const sensor = document.getElementById(sensorId);
-        const pico = document.querySelector('[id^="pico-2"]');
-        if(!sensor){
+        const board = document.getElementById(boardId);
+        if(!sensor || !board){
             stopSimulation(sensorId);
             return;
         }
 
-        if (!isBoardPowered(pico)) {
+        if (!isBoardPowered(board)) {
             stopSimulation(sensorId);
             return;
         }

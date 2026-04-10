@@ -50,7 +50,6 @@
         <div class="tab active" data-type="settings" onclick="switchMenu(this)">Logs</div>
         <div class="tab" data-type="code" onclick="switchMenu(this)">Console</div>
         <div class="tab" data-type="devices" onclick="switchMenu(this)">Devices</div>
-        <div class="tab" data-type="errors" onclick="switchMenu(this)">Errors</div>
         <!-- CONTENT -->
       </div>
 
@@ -92,65 +91,66 @@
 
     <div class="tab-wrapper">
       <div id="sensorscroller-buttons" class="tabs">
-        <div class="tab active" data-type="everything">Všetko</div>
-        <div class="tab" data-type="sensors">Senzory</div>
-        <div class="tab" data-type="objects">Objekty</div>
+        <div class="tab active" data-type="everything" onclick="adjustScroll(this)">Všetko</div>
+        <div class="tab" data-type="microcontoller" onclick="adjustScroll(this)">Dosky</div>
+        <div class="tab" data-type="sensors" onclick="adjustScroll(this)">Senzory</div>
+        <div class="tab" data-type="objects" onclick="adjustScroll(this)">Objekty</div>
         <!-- CONTENT -->
       </div>
 
       <div id="component-scroller" class="settings-segment">
 
-        <div class="component-card active" data-value="uno" onclick="selectComponent(this)">
+        <div class="component-card doska active" data-value="uno" onclick="selectComponent(this)">
           <img src="../media/icon/uno.png" alt="Arduino Uno">
           <span>Arduino Uno</span>
         </div>
 
-        <div class="component-card" data-value="pico-2" onclick="selectComponent(this)">
+        <div class="component-card doska" data-value="pico-2" onclick="selectComponent(this)">
           <img src="../media/icon/pico-2.png" alt="Pico-2">
           <span>Pico-2</span>
         </div>
 
-        <div class="component-card" data-value="LM35" onclick="selectComponent(this)">
+        <div class="component-card snimace" data-value="LM35" onclick="selectComponent(this)">
           <img src="../media/icon/LM35.png" alt="LM35">
           <span>LM35</span>
         </div>
 
-        <div class="component-card" data-value="URM09" onclick="selectComponent(this)">
+        <div class="component-card snimace" data-value="URM09" onclick="selectComponent(this)">
           <img src="../media/icon/URM09.png" alt="URM09">
           <span>URM09</span>
         </div>
 
-        <div class="component-card" data-value="I2C" onclick="selectComponent(this)">
+        <div class="component-card snimace" data-value="I2C" onclick="selectComponent(this)">
           <img src="../media/icon/I2C.png" alt="I2C">
           <span>I2C Triple Axis Accelerometer</span>
         </div>
 
-        <div class="component-card" data-value="hall" onclick="selectComponent(this)">
+        <div class="component-card snimace" data-value="hall" onclick="selectComponent(this)">
           <img src="../media/icon/hall.png" alt="hall">
           <span>Digital Hall Sensor</span>
         </div>
 
-        <div class="component-card" data-value="GP2Y0A41SK0F" onclick="selectComponent(this)">
+        <div class="component-card snimace" data-value="GP2Y0A41SK0F" onclick="selectComponent(this)">
           <img src="../media/icon/GP2Y0A41SK0F.png" alt="GP2Y0A41SK0F">
           <span>Distance Measuring Sensor</span>
         </div>
 
-        <div class="component-card" data-value="potentiometer" onclick="selectComponent(this)">
+        <div class="component-card snimace" data-value="potentiometer" onclick="selectComponent(this)">
           <img src="../media/icon/potentiometer.png" alt="potentiometer">
           <span>Analog Slide Position</span>
         </div>
 
-        <div class="component-card" data-value="heater" onclick="selectComponent(this)">
+        <div class="component-card objekty" data-value="heater" onclick="selectComponent(this)">
           <img src="../media/icon/heater.png" alt="heater">
           <span>Heater</span>
         </div>
 
-        <div class="component-card" data-value="magnet" onclick="selectComponent(this)">
+        <div class="component-card objekty" data-value="magnet" onclick="selectComponent(this)">
           <img src="../media/icon/magnet.png" alt="magnet">
           <span>Magnet</span>
         </div>
 
-        <div class="component-card" data-value="powersupply" onclick="selectComponent(this)">
+        <div class="component-card objekty" data-value="powersupply" onclick="selectComponent(this)">
           <img src="../media/icon/powersupply.png" alt="powersupply">
           <span>Power bank</span>
         </div>
@@ -163,8 +163,8 @@
     <div id="lab-control">
       <button id="apply-settings" onclick="addSensor()">Pridať komponent</button>
       <div>
-        <img src="../media/icon/save.png" alt="reset" width="40px" height="40px" onclick="safeCurrentVersion()"/>
-        <img src="../media/icon/reset.png" alt="reset" width="40px" height="40px" onclick="resetSettings()"/>
+        <img src="../media/icon/save.png" alt="reset" width="35px" height="35px" onclick="safeCurrentVersion()"/>
+        <img src="../media/icon/reset.png" alt="reset" width="35px" height="35px" onclick="resetSettings()"/>
       </div>
     </div>
 

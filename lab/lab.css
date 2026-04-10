@@ -37,10 +37,11 @@ body {
 }
 
 #toolbar {
+
     position: relative;
     padding-left: 30px;
     padding-right: 30px;
-    background-color: rgb(72, 141, 237);
+    background-color: rgb(9, 70, 224);
     display: flex;
     flex: 0.5;
     justify-content: space-between;
@@ -115,7 +116,7 @@ body {
     background: #1c2740;
     display: flex;
     flex-direction: column;
-    padding: 20px;
+    padding: 20px 20px 0 20px;
     gap: 20px;
     /*border-radius: 15px;*/
     color: white;
@@ -125,21 +126,21 @@ body {
 #usercontrol {
     background: #37435e;
     border-radius: 8px;
+    padding-bottom: 10px;
 }
 
 /*the states of the environment and sensors*/
 #state-of {
     display: flex;
     flex-direction: column;
-
+    position: relative;
     padding-left: 10px;
     padding-right: 10px;
     padding-bottom: 10px;
 
     background: rgba(0, 0, 0, 0.8);
     color: #f4f5f4;
-    min-height: 175px;
-    max-height: 175px;
+    height: 260px;
     width: 415px;
 
     /*border-radius: 23px 0 0 23px;*/
