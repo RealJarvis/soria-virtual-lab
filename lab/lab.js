@@ -3,10 +3,21 @@ let counter = 0
 let connectingFrom = null;         // first sensor selected for wire
 let wires = [];                    // stores all drawn wires
 let tutorialState = false
+let simulationActive = false;
 
+let poweredBoards = {};
 // variable serve to save the position where users clicked on the sensor
 let offsetX = 0;
 let offsetY = 0;
+
+function selectComponent(card) {
+    document.querySelectorAll('.component-card').forEach(c => {
+        c.classList.remove('active');
+    });
+
+    card.classList.add('active');
+    document.getElementById('sensor-select').value = card.dataset.value;
+}
 
 // declaring the global variable for the clicked sensor
 window.selectedSensor = null;
@@ -84,7 +95,9 @@ function addSensor() {
     sensor_entity.title = "Click on the sensor to drag it around";
     /*adding the shadow for the sensors to make it appear more realistic*/
 
-    if (document.getElementById('sensor-select').value === "uno"){
+    if (document.getElementById('sensor-select').value === "uno")
+       {
+
         sensor_entity.width = 250;
     }else {
         sensor_entity.width = 120;
@@ -120,23 +133,31 @@ function addSensor() {
 
 /*function for the custom menu that deletes the sensor*/
 function deleteSensor() {
+    console.log(poweredBoards)
     if (selectedSensor) {
         wires = wires.filter(w => {
-            // if the wire is connected to the sensor we're deleting,
-            if (
-                w.pin1.closest(".sensor") === selectedSensor ||
-                w.pin2.closest(".sensor") === selectedSensor
-            ) {
-                // we delete the wire as well
-                w.line.remove();
+            const sensor1 = w.pin1.closest(".sensor");
+            const sensor2 = w.pin2.closest(".sensor");
 
-                return false;       // remove from array
+            if (sensor1 === selectedSensor || sensor2 === selectedSensor) {
+                const connectedSensor = sensor1 === selectedSensor ? sensor2 : sensor1;
+
+                console.log("Deleted sensor:", selectedSensor.id);
+                console.log("Connected sensor:", connectedSensor?.id);
+                if (selectedSensor.id.startsWith("power")) {
+                    delete poweredBoards[connectedSensor.id];
+
+                }
+
+                w.line.remove();
+                return false;
             }
-            return true;       // remove from array
-        })
-        stopSimulation(selectedSensor.id);
-        selectedSensor.remove(); /*<-- removes the sensor from the virtual lab*/
-        window.selectedSensor = null;/*TODO this was changed during this iteration*/
+            return true;
+        });
+
+        console.log(poweredBoards)
+        selectedSensor.remove();
+        window.selectedSensor = null;
     }
 }
 
@@ -238,27 +259,84 @@ function switchMenu(btn) {
 }
 
 
-function handleSimulation(sensor1, sensor2) {
-    if (
-        (sensor1.id.startsWith("LM35") && sensor2.id.startsWith("pico-2")) ||
-        (sensor2.id.startsWith("LM35") && sensor1.id.startsWith("pico-2"))
-    ){
-        startTemperatureSensor("LM35");
-    }
+function switchMode(btn) {
+    const buttons = document.querySelectorAll('.controller-tab');
 
-    if (
-        (sensor1.id.startsWith("URM09") && sensor2.id.startsWith("pico-2")) ||
-        (sensor2.id.startsWith("URM09") && sensor1.id.startsWith("pico-2"))
-    ){
-        startURM09Simulation("URM09");
-    }
+    buttons.forEach(b => {
+        // if it's the same button, we make it active
+        if (b === btn ) {
+            // if the button's data is the code then disable it
+            if (b.dataset.type === "play") {
+                simulationActive = true;
+                wires.forEach(w => {
+                    const sensor1 = w.pin1.closest(".sensor");
+                    const sensor2 = w.pin2.closest(".sensor");
+                    handleSimulation(sensor1, sensor2);
+                });
+            }// if the button's data is the settings then enable it
+            else {
+                document.querySelectorAll(".sensor").forEach(sensor => {
+                    stopSimulation(sensor.id);
+                });
+            }
+            b.classList.add('active');
+            b.classList.remove('disabled');
+        }else {
 
-    if (
-        (sensor1.id.startsWith("hall") && sensor2.id.startsWith("pico-2")) ||
-        (sensor2.id.startsWith("hall") && sensor1.id.startsWith("pico-2"))
-    ){
-        let sensorId = sensor1.id.startsWith("hall") ? sensor1.id : sensor2.id;
-        startHallSimulation(sensorId);
+            // if it's the other button, then remove active and disable
+            b.classList.remove('active');
+            b.classList.add('disabled');
+        }
+    })
+}
+
+function setControllerState(playActive) {
+    const playBtn = document.querySelector('.controller-tab[data-type="play"]');
+    const stopBtn = document.querySelector('.controller-tab[data-type="stop"]');
+
+    if (playActive) {
+
+        playBtn.classList.add('active');
+        playBtn.classList.remove('disabled');
+
+        stopBtn.classList.remove('active');
+        stopBtn.classList.add('disabled');
+    } else {
+        stopBtn.classList.add('active');
+        stopBtn.classList.remove('disabled');
+
+        playBtn.classList.remove('active');
+        playBtn.classList.add('disabled');
+    }
+}
+
+function isBoardPowered(board) {
+    return poweredBoards[board.id] === true;
+}
+
+function updatePowerConnection(sensor1, sensor2) {
+    const isPowerbankToPico =
+        (sensor1.id.startsWith("powersupply") && sensor2.id.startsWith("pico-2")) ||
+        (sensor2.id.startsWith("powersupply") && sensor1.id.startsWith("pico-2"));
+
+    const isPowerbankToUno =
+        (sensor1.id.startsWith("powersupply") && sensor2.id.startsWith("uno")) ||
+        (sensor2.id.startsWith("powersupply") && sensor1.id.startsWith("uno"));
+
+    if (!isPowerbankToPico && !isPowerbankToUno) return;
+
+    const powerbank = sensor1.id.startsWith("powersupply") ? sensor1 : sensor2;
+    const board = powerbank === sensor1 ? sensor2 : sensor1;
+
+    const powerUsb = getPin(powerbank, "USB");
+    const boardUsb = getPin(board, "USB");
+
+    if (isConnected(powerUsb, boardUsb)) {
+        poweredBoards[board.id] = true;
+        printOnConsole(`✔ ${board.id} powered by powerbank`);
+    } else {
+        poweredBoards[board.id] = false;
+        printOnConsole(`⚠ ${board.id} is not powered`);
     }
 }
 
@@ -293,6 +371,7 @@ document.getElementById("lab-area").addEventListener("click", (e) => {
 
         const sensor1 = connectingFrom.closest(".sensor");
         const sensor2 = pin.closest(".sensor");
+        updatePowerConnection(sensor1, sensor2);
 
         handleSimulation(sensor1, sensor2);
 
@@ -331,6 +410,9 @@ function createWire(pin1, pin2) {
     /*setting attributes for the SVG*/
     if (pin1.dataset.pin === "GND" && pin2.dataset.pin === "GND") {
         line.setAttribute('stroke', "#ff0000");
+    }else if(pin1.dataset.pin === "VCC" && pin2.dataset.pin === "3V3" ||
+        pin1.dataset.pin === "3V3" && pin2.dataset.pin === "VCC") {
+        line.setAttribute('stroke', "#11e004");
     }else {
         line.setAttribute('stroke', "#f5f5f5");
     }

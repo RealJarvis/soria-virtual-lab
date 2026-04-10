@@ -58,7 +58,7 @@ function getHeaters(){
     return document.querySelectorAll('[id^="heater"]');
 }
 
-
+//TODO the simulation will not stop automatically if the sensor was connected to Arduino
 function startURM09Simulation(sensorId){
 
     if(runningSimulations[sensorId]) return; // prevent duplicates
@@ -67,10 +67,17 @@ function startURM09Simulation(sensorId){
 
     let intervalId = setInterval(()=>{
 
-        const urm09 = document.querySelector('[id^="URM09"]');
+
+        const urm09 = document.getElementById(sensorId);
+        const pico = document.querySelector('[id^="pico-2"]');
 
         // code logic for stopping the sensor
         if (!urm09) {
+            stopSimulation(sensorId);
+            return;
+        }
+
+        if (!isBoardPowered(pico)) {
             stopSimulation(sensorId);
             return;
         }
@@ -164,7 +171,7 @@ function calculateTemperature(sensor){
     return Math.round(temp);
 }
 
-
+//TODO the simulation will not stop automatically if the sensor was connected to Arduino
 function startTemperatureSensor(sensorId) {
     if(runningSimulations[sensorId]) return;
 
@@ -173,9 +180,14 @@ function startTemperatureSensor(sensorId) {
     let intervalId = setInterval(()=>{
 
         const sensor = document.getElementById(sensorId);
-
+        const pico = document.querySelector('[id^="pico-2"]');
         // stop if deleted
         if(!sensor){
+            stopSimulation(sensorId);
+            return;
+        }
+
+        if (!isBoardPowered(pico)) {
             stopSimulation(sensorId);
             return;
         }
@@ -219,7 +231,7 @@ function getPicoTilt(){
     };
 }
 
-
+//TODO the simulation will not stop automatically if the sensor was connected to Arduino
 function startI2CSensor(sensorId) {
 
     if(runningSimulations[sensorId]) return;
@@ -229,7 +241,13 @@ function startI2CSensor(sensorId) {
     let intervalId = setInterval(()=>{
 
         const sensor = document.getElementById(sensorId);
+        const pico = document.querySelector('[id^="pico-2"]');
         if(!sensor){
+            stopSimulation(sensorId);
+            return;
+        }
+
+        if (!isBoardPowered(pico)) {
             stopSimulation(sensorId);
             return;
         }
@@ -270,7 +288,7 @@ function getInfraredDistance(sensor, object){
     return pixelsToCm(verticalDistancePx);
 }
 
-
+//TODO the simulation will not stop automatically if the sensor was connected to Arduino
 function startDistanceSensor(sensorId) {
 
     if(runningSimulations[sensorId]) return;
@@ -280,7 +298,13 @@ function startDistanceSensor(sensorId) {
     let intervalId = setInterval(()=>{
 
         const sensor = document.getElementById(sensorId);
+        const pico = document.querySelector('[id^="pico-2"]');
         if(!sensor){
+            stopSimulation(sensorId);
+            return;
+        }
+
+        if (!isBoardPowered(pico)) {
             stopSimulation(sensorId);
             return;
         }
@@ -307,7 +331,7 @@ function startDistanceSensor(sensorId) {
     runningSimulations[sensorId] = intervalId;
 }
 
-/* TODO this is the code made for the GP2Y0A41SK0F distance light sensor  */
+
 
 function isMagnetNear(sensor){
 
@@ -325,7 +349,7 @@ function isMagnetNear(sensor){
     return false;
 }
 
-
+//TODO the simulation will not stop automatically if the sensor was connected to Arduino
 function startHallSimulation(sensorId) {
 
     if(runningSimulations[sensorId]) return;
@@ -335,7 +359,13 @@ function startHallSimulation(sensorId) {
     let intervalId = setInterval(()=>{
 
         const sensor = document.getElementById(sensorId);
+        const pico = document.querySelector('[id^="pico-2"]');
         if(!sensor){
+            stopSimulation(sensorId);
+            return;
+        }
+
+        if (!isBoardPowered(pico)) {
             stopSimulation(sensorId);
             return;
         }

@@ -40,7 +40,7 @@ body {
     position: relative;
     padding-left: 30px;
     padding-right: 30px;
-    background-color: #0c53e5;
+    background-color: rgb(72, 141, 237);
     display: flex;
     flex: 0.5;
     justify-content: space-between;
@@ -141,7 +141,7 @@ body {
     min-height: 175px;
     max-height: 175px;
     width: 415px;
-    border-radius: 0 0 8px 8px;
+
     /*border-radius: 23px 0 0 23px;*/
 
     overflow-y: auto;
@@ -197,8 +197,9 @@ body {
     cursor: pointer;
     box-shadow: 0 5px 15px rgba(0, 0, 0, 0.3);
     transition: 0.3s;
-
 }
+
+
 
 .interface button:hover {
     background: linear-gradient(135deg, #3000a6, #000ecc);
@@ -217,7 +218,7 @@ body {
     flex-direction: row;
     align-items: center;
     justify-content: space-between;
-    margin-top: 50px;
+
 }
 #lab-control img:hover {
     cursor: pointer;
@@ -234,6 +235,7 @@ body {
     backdrop-filter: blur(10px);
     border: 1px solid rgba(255,255,255,0.08);
 }
+
 
 .tab {
     padding: 10px 18px;
@@ -252,6 +254,45 @@ body {
     color: white;
     background: linear-gradient(145deg, rgba(255,255,255,0.12), rgba(255,255,255,0.03));
     box-shadow: inset 0 1px 1px rgba(255,255,255,0.2);
+}
+
+#controller-buttons.controller-tabs {
+    display: flex;
+    flex-direction: row-reverse;
+    background: rgba(255,255,255,0.05);
+    border-radius: 0 0 12px 12px;
+    gap: 5px;
+    transition: 0.2s;
+    font-weight: 500;
+}
+
+.controller-tab {
+    padding: 8px 14px;
+    display: flex;
+    border-radius: 0 0 12px 12px;
+}
+
+.controller-tab:hover {
+    background: rgba(255,255,255,0.05);
+    cursor: pointer;
+
+}
+
+.controller-tab.active {
+    background: linear-gradient(145deg, rgba(255,255,255,0.12), rgba(255,255,255,0.03));
+    cursor: pointer;
+    box-shadow: inset 0 1px 1px rgba(255,255,255,0.2);
+}
+
+#sensorscroller-buttons.tabs {
+    display: flex;
+    gap: 5px;
+    padding: 0 5px 0 0;
+    border-radius: 16px 16px 0 0;
+
+    background: rgba(255,255,255,0.05);
+    backdrop-filter: blur(10px);
+    border: 1px solid rgba(255,255,255,0.08);
 }
 
 /*custom menu for the right-click on the sensor picture*/
@@ -359,4 +400,110 @@ body {
     left: 15px;
     white-space: nowrap;
     transform: translateY(-120%);
+}
+.pin.powerport {
+    position: absolute;
+    width: 40px;
+    height: 10px;
+    border-radius: 2px;
+    background: rgba(255,255,255,0.08);
+    border: 1px solid white;
+    box-sizing: border-box;
+}
+
+.pin.powerport::before {
+    content: "";
+    position: absolute;
+    top: 2px;
+    left: 2px;
+    width: 35px;
+    height: 4px;
+    background: rgba(255,255,255,0.25);
+    border-radius: 1px;
+}
+
+.powerport:hover {
+    cursor: crosshair;
+    transform: scale(1.3);
+}
+
+.usb-label {
+    position: absolute;
+    font-size: 10px;
+    left: 15px;
+    white-space: nowrap;
+    transform: translateX(180%);
+}
+
+
+
+#component-scroller {
+    display: flex;
+    gap: 12px;
+    overflow-x: auto;
+    width: 397px;
+    height: 100px;
+    scroll-behavior: smooth;
+    padding: 6px 0 6px 0;
+    background: rgba(255,255,255,0.08);
+}
+
+.component-card {
+    min-width: 110px;
+    max-width: 110px;
+    background: rgba(255,255,255,0.06);
+    border: 1px solid rgba(255,255,255,0.12);
+    border-radius: 12px;
+    padding: 10px 0 10px 0;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    gap: 6px;
+    cursor: pointer;
+    transition: 0.2s;
+    text-align: center;
+
+}
+
+.component-card img {
+    width: 65px;
+    height: 65px;
+    object-fit: contain;
+}
+
+.component-card span {
+    font-size: 11px;
+    color: white;
+    line-height: 1.2;
+}
+
+.component-card:hover {
+    transform: translateY(-2px);
+    background: rgba(255,255,255,0.1);
+}
+
+.component-card.active {
+    border-color: #4da3ff;
+    box-shadow: 0 0 0 1px rgba(77,163,255,0.5);
+    background: rgba(77,163,255,0.12);
+}
+
+#component-scroller::-webkit-scrollbar {
+    height: 6px;
+}
+
+#component-scroller::-webkit-scrollbar-track {
+    background: rgba(255,255,255,0.05);
+    border-radius: 10px;
+}
+
+#component-scroller::-webkit-scrollbar-thumb {
+    background: rgba(255,255,255,0.25);
+    border-radius: 10px;
+}
+
+#component-scroller::-webkit-scrollbar-thumb:hover {
+    background: rgba(255,255,255,0.4);
+    cursor: pointer;
 }
