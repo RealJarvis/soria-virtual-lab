@@ -47,9 +47,9 @@
 
     <div class="tab-wrapper">
       <div id="interface-buttons" class="tabs">
-        <div class="tab active" data-type="settings" onclick="switchMenu(this)">Logs</div>
-        <div class="tab" data-type="code" onclick="switchMenu(this)">Console</div>
-        <div class="tab" data-type="devices" onclick="switchMenu(this)">Devices</div>
+        <div class="tab active" data-type="settings" onclick="switchMenu(this)">Logy</div>
+        <div class="tab" data-type="code" onclick="switchMenu(this)">Konzola</div>
+        <div class="tab" data-type="devices" onclick="switchMenu(this)">Zariadenia</div>
         <!-- CONTENT -->
       </div>
 
@@ -60,7 +60,9 @@
         <script src="console.js"></script>
       </div>
 
-      <div id="devices-list" class="devices-segment"></div>
+      <div class="devices-segment">
+
+      </div>
 
       <div id="controller-buttons" class="controller-tabs">
         <div class="controller-tab" data-type="play" onclick="switchMode(this)"><img src="../media/icon/start.png" alt="reset" width="25px" height="25px"> </div>
@@ -98,7 +100,7 @@
         <!-- CONTENT -->
       </div>
 
-      <div id="component-scroller" class="settings-segment">
+      <div id="component-scroller">
 
         <div class="component-card doska active" data-value="uno" onclick="selectComponent(this)">
           <img src="../media/icon/uno.png" alt="Arduino Uno">

@@ -28,7 +28,7 @@ function handleSimulationPICO(sensor1, sensor2) {
             isConnected(out, gp26)
         ) {
             printOnConsole("✅ LM35 fully connected to Pico 2");
-            startTemperatureSensor(lm35.id, pico);
+            startTemperatureSensor(lm35.id, pico.id);
             setControllerState(true);
         } else {
             printOnConsole("⚠️ LM35 not fully connected");

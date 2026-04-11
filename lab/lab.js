@@ -10,6 +10,7 @@ let poweredBoards = {};
 let offsetX = 0;
 let offsetY = 0;
 
+
 function selectComponent(card) {
     document.querySelectorAll('.component-card').forEach(c => {
         c.classList.remove('active');
@@ -104,6 +105,26 @@ function activateAssitant(element) {
     popup.appendChild(button);
 }
 
+function addDeviceintoList(sensorId) {
+    const deviceEl = document.querySelector(".devices-segment");
+    const deviceElement = document.createElement("div");
+
+    deviceElement.className = "device-item";
+    deviceElement.id = "device-" + sensorId;
+    deviceElement.innerHTML = `
+        <div class="device-name">${sensorId}</div>
+        <div class="device-meta"> Connected device</div>
+    `;
+
+    deviceEl.appendChild(deviceElement);
+
+}
+
+function removeDevicefromTab(deviceId) {
+    const deviceElement = document.getElementById("device-" + deviceId);
+    deviceElement.remove();
+}
+
 function addSensor() {
 
     // the variable bellow serves a purpose of keeping the sensor image and its pins in it
@@ -118,10 +139,15 @@ function addSensor() {
     /*creating a unique ID for each sensor, to be able to drag it later */
 
     let value = document.getElementById('sensor-select').value;
+
+
+
     let sensorId = value + counter;
     counter++;
     sensor_container.id = sensorId;
     sensor_entity.id = sensorId + "-img";
+
+    addDeviceintoList(sensor_container.id);
 
     sensor_entity.title = "Click on the sensor to drag it around";
     /*adding the shadow for the sensors to make it appear more realistic*/
@@ -187,6 +213,7 @@ function deleteSensor() {
         });
 
         console.log(poweredBoards)
+        removeDevicefromTab(selectedSensor.id);
         selectedSensor.remove();
         window.selectedSensor = null;
     }
@@ -253,40 +280,41 @@ document.addEventListener("mousemove", (e) => {
 
 /*Function used to switch through coding and environmental settings */
 function switchMenu(btn) {
-   const buttons = document.querySelectorAll('.tab');
+    const buttons = document.querySelectorAll('#interface-buttons .tab');
 
-   buttons.forEach(b => {
-       // if it's the same button, we make it active
-       if (b === btn ) {
-           // if the button's data is the code then disable it
-           if (b.dataset.type === "code") {
-               document.querySelectorAll('.settings-segment').forEach(element => {
-                   element.style.display = "none";
-               })
-               // and enable the code segment
-               document.querySelectorAll('.code-segment').forEach(element => {
-                   element.style.display = "flex";
-               })
+    buttons.forEach(b => {
+        b.classList.remove('active');
+        b.classList.add('disabled');
+    });
 
-           }// if the button's data is the settings then enable it
-           else {
-               document.querySelectorAll('.settings-segment').forEach(element => {
-                   element.style.display = "flex";
-               })
-               // and enable the settings segment
-               document.querySelectorAll('.code-segment').forEach(element => {
-                   element.style.display = "none";
-               })
-           }
-           b.classList.add('active');
-           b.classList.remove('disabled');
-       }else {
+    btn.classList.add('active');
+    btn.classList.remove('disabled');
 
-           // if it's the other button, then remove active and disable
-           b.classList.remove('active');
-           b.classList.add('disabled');
-       }
-   })
+    document.querySelectorAll('.settings-segment').forEach(el => {
+        el.style.display = "none";
+    });
+
+    document.querySelectorAll('.code-segment').forEach(el => {
+        el.style.display = "none";
+    });
+
+    document.querySelectorAll('.devices-segment').forEach(el => {
+        el.style.display = "none";
+    });
+
+    if (btn.dataset.type === "settings") {
+        document.querySelectorAll('.settings-segment').forEach(el => {
+            el.style.display = "flex";
+        });
+    } else if (btn.dataset.type === "code") {
+        document.querySelectorAll('.code-segment').forEach(el => {
+            el.style.display = "flex";
+        });
+    } else if (btn.dataset.type === "devices") {
+        document.querySelectorAll('.devices-segment').forEach(el => {
+            el.style.display = "flex";
+        });
+    }
 }
 
 function getConnectedBoard(sensor1, sensor2) {
@@ -379,10 +407,10 @@ function updatePowerConnection(sensor1, sensor2) {
 
     if (isConnected(powerUsb, boardUsb)) {
         poweredBoards[board.id] = true;
-        printOnConsole(`✔ ${board.id} powered by powerbank`);
+        printOnConsole(`✅ ${board.id} powered by powerbank`);
     } else {
         poweredBoards[board.id] = false;
-        printOnConsole(`⚠ ${board.id} is not powered`);
+        printOnConsole(`⚠️ ${board.id} is not powered`);
     }
 }
 
@@ -521,6 +549,8 @@ function resetSettings() {
 
 
 }
+
+
 
 
 

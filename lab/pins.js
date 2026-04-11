@@ -127,3 +127,4 @@ function isConnected(pinA, pinB) {
         (w.pin1 === pinB && w.pin2 === pinA)
     );
 }
+

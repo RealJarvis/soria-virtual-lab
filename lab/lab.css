@@ -26,7 +26,7 @@ body {
 
 .back-btn {
     position: absolute;
-    top: 20px;
+    top: 10px;
     left: 20px;
     color: #fff;
     text-decoration: none;
@@ -124,7 +124,7 @@ body {
 }
 
 #usercontrol {
-    background: #37435e;
+    background: rgba(255,255,255,0.05);
     border-radius: 8px;
     padding-bottom: 10px;
 }
@@ -137,7 +137,8 @@ body {
     padding-left: 10px;
     padding-right: 10px;
     padding-bottom: 10px;
-
+    font-family: monospace;
+    font-size: 15px;
     background: rgba(0, 0, 0, 0.8);
     color: #f4f5f4;
     height: 260px;
@@ -148,7 +149,7 @@ body {
     overflow-y: auto;
     overflow-x: hidden;
     border: 1px solid rgba(255,255,255,0.15);
-    box-shadow: 0 4px 12px rgba(0,0,0,0.3);
+
 
 }
 
@@ -507,4 +508,56 @@ body {
 #component-scroller::-webkit-scrollbar-thumb:hover {
     background: rgba(255,255,255,0.4);
     cursor: pointer;
+}
+
+.devices-segment {
+    display: none;
+    flex-direction: column;
+    position: relative;
+    padding-bottom: 10px;
+
+    color: #f4f5f4;
+    height: 260px;
+    width: 435px;
+    background: linear-gradient(180deg, #12171e 0%, #10161c 100%);
+    overflow-y: auto;
+    overflow-x: hidden;
+    border: 1px solid rgba(255, 255, 255, 0.15);
+}
+.devices-segment::-webkit-scrollbar {
+    width: 4px;
+}
+/*scrollbar thumb*/
+.devices-segment::-webkit-scrollbar-thumb{
+    background: #3b82f6;
+}
+/*scrollbar track for thumb*/
+.devices-segment::-webkit-scrollbar-track{
+    background: rgba(255,255,255,0.1);
+}
+
+.device-item {
+    background: linear-gradient(180deg, #202736 0%, #1d2733 100%);
+    border: 1px solid rgba(122, 127, 255, 0.18);
+    border-left: 3px solid #6fa8ff;
+    padding: 10px 12px;
+    color: white;
+    transition: background 0.15s ease, transform 0.15s ease, border-color 0.15s ease;
+}
+.device-item:hover {
+    background: linear-gradient(180deg, #445071 0%, #36405c 100%);
+    border-color: rgba(122, 127, 255, 0.35);
+    transform: translateY(-1px);
+}
+
+.device-name {
+    font-size: 17px;
+    font-weight: 600;
+    color: #ffffff;
+    margin-bottom: 3px;
+}
+
+.device-meta {
+    font-size: 12px;
+    color: rgba(255, 255, 255, 0.68);
 }
