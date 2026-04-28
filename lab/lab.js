@@ -153,9 +153,11 @@ function addSensor() {
     /*adding the shadow for the sensors to make it appear more realistic*/
 
     if (document.getElementById('sensor-select').value === "uno")
-       {
-
+    {
         sensor_entity.width = 250;
+    }else if (document.getElementById('sensor-select').value === "potentiometer") {
+        addPotentiometerControl(sensor_container);
+        sensor_entity.width = 150;
     }else {
         sensor_entity.width = 120;
     }
@@ -496,7 +498,11 @@ function createWire(pin1, pin2) {
     }else if(pin1.dataset.pin === "VCC" && pin2.dataset.pin === "3V3" ||
         pin1.dataset.pin === "3V3" && pin2.dataset.pin === "VCC") {
         line.setAttribute('stroke', "#11e004");
-    }else if(pin1.dataset.pin === "USB" && pin2.dataset.pin === "USB") {
+    }else if(pin1.dataset.pin === "VCC" && pin2.dataset.pin === "5V" ||
+        pin1.dataset.pin === "5V" && pin2.dataset.pin === "VCC") {
+        line.setAttribute('stroke', "#11e004");
+    }
+    else if(pin1.dataset.pin === "USB" && pin2.dataset.pin === "USB") {
         line.setAttribute('stroke', "#03efda");
         line.setAttribute('stroke-width', "17");
     }

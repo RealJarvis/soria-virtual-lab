@@ -437,7 +437,30 @@ body {
     transform: translateX(180%);
 }
 
+.pot-track {
+    position: absolute;
+    width: 70px;
+    height: 6px;
+    background: rgba(255, 255, 255, 0.25);
+    border: 1px solid white;
+    border-radius: 6px;
+    left: 20px;
+    top: 18px;
+    z-index: 20;
+}
 
+.pot-knob {
+    position: absolute;
+    width: 12px;
+    height: 12px;
+    background: #00d0ff;
+    border: 1px solid white;
+    border-radius: 50%;
+    top: -4px;
+    left: 44px;
+    cursor: pointer;
+    z-index: 21;
+}
 
 #component-scroller {
     display: flex;

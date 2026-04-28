@@ -59,10 +59,9 @@ function pinArrange(container, value) {
     }
     else if (value === "URM09"){
         // connects to pins -> 3V3, GND, GP20 (SDA), GP21 (SCL)
-        createPin(container, "VCC", 15, 70);
-        createPin(container, "GND", 40, 70);
-        createPin(container, "SDA", 65, 70);
-        createPin(container, "SCL", 90, 70);
+        createPin(container, "VCC", 25, 70);
+        createPin(container, "GND", 50, 70);
+        createPin(container, "OUT", 75, 70);
     }else if (value === "LM35"){
         //OUT → must connect to GP26 (ADC), VCC → 3V3, GND → GND
         createPin(container, "GND", 122, 25);
@@ -78,15 +77,21 @@ function pinArrange(container, value) {
 
     }else if (value === "potentiometer"){
         //VCC -> 3V3, GND -> GND, OUT\SIG -> GP26
-        createPin(container, "VCC", 122, 0);
-        createPin(container, "GND", 122, 13);
-        createPin(container, "OUT", 122, 27);
+        createPin(container, "VCC", 153, 0);
+        createPin(container, "GND", 153, 13);
+        createPin(container, "OUT", 153, 27);
 
     }else if (value === "GP2Y0A41SK0F"){
         // connects to pins -> 3V3, GND, GP20 (SDA), GP21 (SCL)
         createPin(container, "VCC", 15, 70);
         createPin(container, "GND", 40, 70);
         createPin(container, "OUT", 65, 70);
+    }
+    else if (value === "hall"){
+        //OUT → must connect to GP26 (ADC), VCC → 3V3, GND → GND
+        createPin(container, "VCC", 122, 40);
+        createPin(container, "GND", 122, 53);
+        createPin(container, "OUT", 122, 67);
     }else if (value === "powersupply") {
         createPowerPort(container, "USB", 70, -15);
     }

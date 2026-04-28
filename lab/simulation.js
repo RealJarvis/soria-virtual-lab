@@ -347,22 +347,22 @@ function isMagnetNear(sensor){
 }
 
 //TODO the simulation will not stop automatically if the sensor was connected to Arduino
-function startHallSimulation(sensorId) {
+function startHallSimulation(sensorId, boardId) {
 
     if(runningSimulations[sensorId]) return;
 
     printOnConsole(sensorId + " Hall sensor started");
 
     let intervalId = setInterval(()=>{
-
         const sensor = document.getElementById(sensorId);
-        const pico = document.querySelector('[id^="pico-2"]');
-        if(!sensor){
+        const board = document.getElementById(boardId);
+
+        if (!sensor || !board) {
             stopSimulation(sensorId);
             return;
         }
 
-        if (!isBoardPowered(pico)) {
+        if (!isBoardPowered(board)) {
             stopSimulation(sensorId);
             return;
         }
@@ -380,6 +380,78 @@ function startHallSimulation(sensorId) {
     runningSimulations[sensorId] = intervalId;
 }
 
+// this part serves for the Analog Slide Position
+function addPotentiometerControl(sensorContainer) {
+    const track = document.createElement("div");
+    const knob = document.createElement("div");
+
+    track.className = "pot-track";
+    knob.className = "pot-knob";
+
+    // the value that toggle stores ->
+    sensorContainer.dataset.sliderValue = "50";
+
+    track.appendChild(knob);
+    sensorContainer.appendChild(track);
+
+    let dragging = false;
+
+    knob.addEventListener("mousedown", (e) => {
+        e.stopPropagation();
+        dragging = true;
+    });
+
+    document.addEventListener("mousemove", (e) => {
+        if (!dragging) return;
+
+        const rect = track.getBoundingClientRect();
+        let x = e.clientX - rect.left;
+        x = Math.max(0, Math.min(x, rect.width));
+
+        knob.style.left = `${x - 6}px`;
+
+        const percent = Math.round((x / rect.width) * 100);
+        sensorContainer.dataset.sliderValue = percent;
+    });
+
+    document.addEventListener("mouseup", () => {
+        dragging = false;
+    });
+
+    knob.style.left = "44px";
+}
+
+function potentiometerSimulation(sensorId, boardId) {
+    if (runningSimulations[sensorId]) return;
+
+    printOnConsole(sensorId + " Slide Position sensor started");
+
+    const intervalId = setInterval(() => {
+        const sensor = document.getElementById(sensorId);
+        const board = document.getElementById(boardId);
+
+        if (!sensor || !board) {
+            stopSimulation(sensorId);
+            return;
+        }
+
+        if (!isBoardPowered(board)) {
+            stopSimulation(sensorId);
+            return;
+        }
+
+        const sliderValue = Number(sensor.dataset.sliderValue || 0);
+
+        // map 0–100 to 0–1023
+        const analogValue = Math.round((sliderValue / 100) * 1023);
+
+        printOnConsole(
+            `Slide position: ${sliderValue}% | Analog output: ${analogValue}`
+        );
+    }, 2000);
+
+    runningSimulations[sensorId] = intervalId;
+}
 
 
 
