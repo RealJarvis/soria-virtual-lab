@@ -25,18 +25,14 @@
         <h2>Nastavenia</h2>
 
         <div class="setting-row">
-            <span>Meno:</span>
-            <span>Pavel <img src="../media/icon/edit.png" class="edit-icon"></span>
+            <span>Používateľské meno:</span>
+            <span id="profile-fullname"> <img src="../media/icon/edit.png" class="edit-icon"></span>
         </div>
 
-        <div class="setting-row">
-            <span>Priezvisko:</span>
-            <span>Petr <img src="../media/icon/edit.png" class="edit-icon"></span>
-        </div>
 
         <div class="setting-row">
             <span>Rola:</span>
-            <span>Student <img src="../media/icon/edit.png" class="edit-icon"></span>
+            <span class="profile-role"> <img src="../media/icon/edit.png" class="edit-icon"></span>
         </div>
 
         <div class="checkbox-row">
@@ -59,7 +55,7 @@
     <div class="card profile-card">
         <img src="../media/icon/avatar.png" class="avatar">
 
-        <h2>Pavel Petr</h2>
+        <h2 class="profile-username">Pavel Petr</h2>
 
         <div class="stat-row">
             <span>Presnosť</span>
@@ -81,7 +77,7 @@
             História učenia <span class="arrow">›</span>
         </div>
 
-        <button class="delete-btn">Odstrániť profil</button>
+        <button id="logout-btn">Odhlásiť sa</button>
     </div>
 
     <!-- RIGHT NAV -->
@@ -89,7 +85,7 @@
         <a href="../lab/lab.html" class="nav-btn">Laboratórium</a>
         <a href="../theory/theory.html" class="nav-btn">Teória</a>
     </div>
-
+<script src="profile.js"></script>
 </div>
 
 </body>

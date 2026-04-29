@@ -99,7 +99,7 @@ a {
 }
 
 /* DELETE */
-.delete-btn {
+#logout-btn {
     margin-top: 20px;
     background: #d40000;
     color: white;
