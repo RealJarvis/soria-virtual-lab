@@ -12,33 +12,32 @@
 
     <div class="main-structure">
 
-        <div class="search_btn">
-            <div id="menubar"><a onclick="goBack()" class="back-btn">← Späť</a></div>
-            <label>
-                <input type="text" placeholder="Hľadať..">
-            </label>
 
-        </div>
+            <div id="menubar"><a onclick="goBack()" class="back-btn">← Späť</a></div>
+
 
         <div class="content">
             <div class="theory-section">
-                <h2>Topics</h2>
+                <h2>Témy</h2>
                 <ul>
-                    <li>Resistive Sensors</li>
-                    <li>Inductive Sensors</li>
-                    <li>Capacitive Sensors</li>
+                    <li class="topic-entity active" id="LM35" onclick="selector(this)">Analog LM35 Temperature Sensor For Arduino</li>
+                    <li class="topic-entity" id="URM09" onclick="selector(this)">URM09 Ultrasonic Distance Sensor</li>
+                    <li class="topic-entity" id="I2C" onclick="selector(this)">I2C Triple Axis Accelerometer</li>
+                    <li class="topic-entity" id="GP2Y0A41SK0F" onclick="selector(this)">Distance Measuring Sensor Unit </li>
+                    <li class="topic-entity" id="potentiometer" onclick="selector(this)">Analog Slide Position</li>
+                    <li class="topic-entity" id="hall" onclick="selector(this)">Digital Hall Sensor</li>
                 </ul>
             </div>
 
             <div class="quiz-section">
-                <h2>Quizzes</h2>
-                <a class="learn-btns" href="../quiz/quiz.html"><button>Start Quiz</button></a>
-                <a class="learn-btns" href="../materials/materials.html"><button>Learn</button></a>
+                <h2 id="selected-topic">Kliknite na tému pre začatie</h2>
+                <a class="learn-btns" href="../materials/materials.html"><button>Učiť sa</button></a>
+                <a class="learn-btns" href="../quiz/quiz.html"><button>Spustiť kvíz</button></a>
 
             </div>
         </div>
     </div>
-
+    <script src="theory.js"></script>
     <script>
         function goBack() {
             window.history.back();

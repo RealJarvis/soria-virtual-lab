@@ -39,9 +39,10 @@ body {
 #toolbar {
 
     position: relative;
-    padding-left: 30px;
-    padding-right: 30px;
-    background-color: rgb(9, 70, 224);
+    padding-left: 24px;
+    padding-right: 24px;
+    background: #0f274d;
+    min-height: 50px;
     display: flex;
     flex: 0.5;
     justify-content: space-between;
@@ -117,7 +118,7 @@ body {
     display: flex;
     flex-direction: column;
     padding: 20px 20px 0 20px;
-    gap: 20px;
+    gap: 24px;
     /*border-radius: 15px;*/
     color: white;
 
