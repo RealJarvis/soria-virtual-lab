@@ -70,7 +70,7 @@ body {
 
 /* Login Button */
 .login-btn {
-    background-color: #3b5bfd;
+    background: #2e3bf0;
     color: white;
     padding: 12px;
     border: none;
@@ -79,10 +79,11 @@ body {
     cursor: pointer;
     transition: 0.2s;
     width: 100%;
+
 }
 
 .login-btn:hover {
-    background-color: #5f78ff;
+    background: linear-gradient(135deg, #3000a6, #000ecc);
 }
 
 /* Bottom text */

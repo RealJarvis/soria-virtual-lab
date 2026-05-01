@@ -7,6 +7,9 @@ function selector(entity) {
     let selected_topic = document.getElementById("selected-topic");
     selected_topic.innerHTML = entity.innerText;
 
-    console.log(entity.innerText);
-    console.log(entity.id);
+    document.getElementById("learn-link").href =
+        `../materials/materials.html?topic=${encodeURIComponent(entity.id)}`;
+
+    document.getElementById("quiz-link").href =
+        `../quiz/quiz.html?topic=${encodeURIComponent(entity.id)}`;
 }

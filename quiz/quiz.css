@@ -91,6 +91,7 @@ body {
     gap: 12px;
 }
 
+
 .answer-btn {
     background: #1d30f5;
     color: white;
@@ -116,4 +117,27 @@ body {
     border-radius: 999px;
     font-size: 15px;
     cursor: pointer;
+}
+
+.answer-btn.correct {
+    background: #1f9d55;
+    color: white;
+}
+
+.answer-btn.wrong {
+    background: #c53030;
+    color: white;
+}
+
+#feedback-box {
+    margin-top: 16px;
+    min-height: 24px;
+    text-align: center;
+    color: white;
+    font-size: 16px;
+}
+
+.next-btn:disabled {
+    opacity: 0.5;
+    cursor: not-allowed;
 }

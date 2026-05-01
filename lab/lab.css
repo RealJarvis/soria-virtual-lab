@@ -4,7 +4,8 @@ body {
     flex-direction: column;
     margin: 0;
     min-height: 100vh;
-    font-family: 'Inter', sans-serif;
+    font-family: monospace;
+    font-size: 17px;
 }
 
 #image-viewer {
@@ -30,6 +31,7 @@ body {
     left: 20px;
     color: #fff;
     text-decoration: none;
+    font-size: 18px;
 }
 
 .back-btn:hover {
@@ -155,7 +157,7 @@ body {
 }
 
 #state-of h2 {
-    font-family: 'Consolas', cursive;
+    font-family: monospace;
     align-self: center;
     font-size: 24px;
     margin-bottom: 10px;
@@ -194,7 +196,7 @@ body {
     padding: 10px;
     border-radius: 8px;
     border: none;
-    background: #0072ff;
+    background: #2e3bf0;
     color: white;
     font-family: monospace;
     cursor: pointer;
