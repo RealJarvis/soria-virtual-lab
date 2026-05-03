@@ -467,8 +467,6 @@ document.getElementById("lab-area").addEventListener("click", (e) => {
 
     } else {
         connectingFrom = pin;
-
-        sensor.style.outline = "2px dashed white";
         document.body.style.cursor = "crosshair";
     }
 
@@ -542,17 +540,29 @@ function createWire(pin1, pin2) {
 }
 
 function resetSettings() {
-    let lab = document.getElementById("lab-area");
-    lab.innerHTML = "";
-    // stop all running simulations
-
-    runningSimulations = {};
+    document.querySelectorAll("#lab-area .sensor").forEach(sensor => {
+        sensor.remove();
+    });
 
     wires.forEach(w => {
         if (w.line) w.line.remove();
     });
-    wires = [];
 
+    document.querySelectorAll(".devices-segment .device-item").forEach(device => {
+        device.remove();
+    });
+
+    const logSegment = document.getElementById("state-of");
+    if (logSegment) {
+        logSegment.innerHTML = "";
+    }
+
+    runningSimulations = {};
+    wires = [];
+    connectingFrom = null;
+    draggedEl = null;
+    poweredBoards = {};
+    window.selectedSensor = null;
 }
 
 

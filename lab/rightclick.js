@@ -2,6 +2,11 @@
 const sensorSchematics = {
     "pico-": "../media/info/picoschem.jpg",
     "uno": "../media/info/unoschem.jpg",
+    "LM": "../media/info/LM35wire.jpg",
+    "URM": "../media/info/URM09wire.jpg",
+    "I2C": "../media/info/I2Cwire.jpg",
+    "potentiometer": "../media/info/Sliderwire.jpg",
+    "hall": "../media/info/Hallwire.jpg"
 
 };
 
@@ -27,6 +32,7 @@ function closeInfoPanel() {
 /* Function that open the picture for the specific sensor*/
 function openImage() {
     const type = window.selectedSensor.id.replace(/[0-9]+$/, '');
+    console.log(type);
     const path = sensorSchematics[type];
     if (!type || !path) return;
 
