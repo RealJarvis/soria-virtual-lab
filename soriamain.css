@@ -1,5 +1,5 @@
 body {
-    background: #07152C;
+    background: radial-gradient(circle at center, #07142a 0%, #050d1a 70%);
     margin: 0;
     justify-content: center;
     align-items: center;

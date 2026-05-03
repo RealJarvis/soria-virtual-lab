@@ -1,5 +1,5 @@
 body {
-    background: #07152C;
+    background: radial-gradient(circle at center, #07142a 0%, #050d1a 70%);
     display: flex;
     flex-direction: column;
     margin: 0;
@@ -43,7 +43,7 @@ body {
     position: relative;
     padding-left: 24px;
     padding-right: 24px;
-    background: #0f274d;
+    background: radial-gradient(circle at center, #0d2344 0%, #0d203d 70%);
     min-height: 50px;
     display: flex;
     flex: 0.5;
