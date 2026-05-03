@@ -89,6 +89,8 @@ body {
     justify-content: center;
     align-items: center;
     color: white;
+    /*needed to keep the sensors within the area*/
+    overflow: hidden;
 
 
 }
@@ -374,7 +376,8 @@ body {
 .sensor {
     position: absolute;
     display: inline-block;
-
+    padding-right: 120px;
+    padding-bottom: 100px;
     width: fit-content;
     height: fit-content;
 
