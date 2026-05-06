@@ -60,6 +60,7 @@ body {
 
 #menubar{
     display: flex;
+
 }
 #buttons {
     display: flex;
@@ -356,22 +357,78 @@ body {
     100% { background-position: 0% 50%; }
 }
 
+.toolbarbtn{
+    display: flex;
+    color: white;
+    border-radius: 8px;
+    background: radial-gradient(circle at center, #133664 0%, #153664 70%);
+    align-items: center;
+    padding: 0 10px 0 10px;
+}
+.toolbarbtn:hover{
+    cursor: pointer;
+    background: radial-gradient(circle at center, #2770c9 0%, #2d70c9 70%);
+}
+
+a {
+    text-decoration: none;
+}
 
 #tutorial-overlay {
     position: fixed;
-    top: 25%;
-    left: 25%;
-    width:30%;
-    height:20%;
-    background: #000ecc;
-    padding: 10px;
-    color: white;
+    inset: 0;
     display: none;
-    align-items:center;
-    justify-content:center;
-    border-radius: 15px;
+    background-color: rgba(10, 10, 10, 0.26);
+    align-items: center;
+    justify-content: center;
+    z-index: 9998;
 }
 
+.tutorial-box {
+    width: min(480px, 82vw);
+    min-height: 180px;
+    background: radial-gradient(circle at center, #133664 0%, #153664 70%);
+    color: white;
+    border-radius: 18px;
+    box-shadow: 14px 14px 0 rgba(0, 0, 0, 0.28);
+    padding: 26px 24px;
+    box-sizing: border-box;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    gap: 18px;
+    text-align: center;
+}
+
+.tutorial-box h3 {
+    margin: 0;
+    font-size: 28px;
+    font-weight: 700;
+}
+
+.tutorial-box p {
+    margin: 0;
+    font-size: 18px;
+    line-height: 1.5;
+}
+
+#tutorial-close {
+    align-self: center;
+    min-width: 150px;
+    height: 48px;
+    border: none;
+    border-radius: 14px;
+    background: #2e3bf0;
+    color: white;
+    font-size: 16px;
+    font-weight: 700;
+    cursor: pointer;
+
+}
+
+#tutorial-close:hover {
+    background: linear-gradient(135deg, #3000a6, #000ecc);
+}
 
 .sensor {
     position: absolute;

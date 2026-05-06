@@ -54,16 +54,24 @@ function adjustScroll(btn) {
 // declaring the global variable for the clicked sensor
 window.selectedSensor = null;
 function tutorialSwitch() {
-    const state = document.querySelector(".state")
-    const image = state?.querySelector("img");
-    if (state.id === "ON"){
-        state.id = "OFF";
+    const toolbarbtn = document.querySelector(".toolbarbtn")
+    const image = toolbarbtn?.querySelector("img");
+    if (toolbarbtn.id === "ON"){
+        toolbarbtn.id = "OFF";
         tutorialState = false;
         image.src = "./../media/icon/tutoroff.png";
     }else {
-        state.id = "ON";
+        toolbarbtn.id = "ON";
         tutorialState = true;
         image.src = "./../media/icon/tutor.png";
+
+        const overlay = document.getElementById("tutorial-overlay");
+        const title = document.getElementById("tutorial-title");
+        const text = document.getElementById("tutorial-text");
+
+        title.textContent = "Návod pre Soriu";
+        text.textContent = "Teraz môžete kliknúť na ľubovoľný senzor a zobrazí sa vám vysvetlenie, ako ho pripojiť alebo používať. Ak chcete návod vypnúť, znova kliknite na žiarovku.";
+        overlay.style.display = "flex";
     }
 
 
@@ -71,38 +79,38 @@ function tutorialSwitch() {
 // pop up message which serves as a guid for the lab
 function activateAssitant(element) {
     if (!tutorialState) return;
-    // tutorial logic
-    let popup = document.getElementById('tutorial-overlay');
-    popup.style.display = "flex";
-    let text = document.createElement("p");
+
+    const overlay = document.getElementById("tutorial-overlay");
+    const title = document.getElementById("tutorial-title");
+    const text = document.getElementById("tutorial-text");
+
+    title.textContent = "Návod";
+
     if (element === "pico-2") {
-        text.innerText = "Vybrali ste si dosku Pico, teraz musíte pridať senzor alebo pripojiť senzor k Pico, ak ho máte."
-    }else if (element === "URM09") {
-        text.innerText = "Vyberte senzor, kliknite pravým tlačidlom myši a vyberte možnosť „Connect“, čím ho pripojíte k zariadeniu Pico. Keď všetko funguje, pridajte komponentný „Heating machine“ a umiestnite ho pod zariadenie, aby ste mohli merať vzdialenosť."
-    }else if (element === "LM35") {
-        text.innerText = "Vyberte senzor, kliknite pravým tlačidlom myši a vyberte možnosť „Connect“, čím ho pripojíte k zariadeniu Pico. Keď všetko funguje, pridajte komponent „Heating machine“ a umiestnite ho blízko senzora. Teplota stúpa, keď je vedľa senzora umiestnených viac ohrievačov."
-    }else if (element === "I2C") {
-        text.innerText = "Vyberte senzor, kliknite pravým tlačidlom myši a vyberte možnosť „Connect“, čím ho pripojíte k zariadeniu Pico. Keď všetko funguje, môžete dosku Pico presunúť a súradnice sa zmenia."
-    }else if (element === "GP2Y0A41SK0F") {
-        text.innerText = "Vyberte senzor, kliknite pravým tlačidlom myši a vyberte možnosť „Connect“, čím ho pripojíte k zariadeniu Pico. Keď všetko funguje, umiestnite „Heating machine“ pod senzor a otestujte, ako funguje."
-    }else if (element === "hall") {
-        text.innerText = "Vyberte senzor, kliknite pravým tlačidlom myši a vyberte možnosť „Connect“, čím ho pripojíte k zariadeniu Pico. Keď všetko funguje, umiestnite „Magnet“ blízko senzora, aby ste ho otestovali."
+        text.textContent = "Vybrali ste si dosku Pico. Teraz pridajte senzor alebo pripojte už vložený senzor k doske.";
+    } else if (element === "URM09") {
+        text.textContent = "Pripojte URM09 k vývojové doske. Po správnom zapojení pridajte objekt, na ktorom budete testovať meranie vzdialenosti. Ak chcete zobraziť schému zapojenia senzora, umiestnite kurzor myši na senzor, kliknite pravým tlačidlom myši a v ponuke vyberte možnosť Schéma zapojenia.";
+    } else if (element === "LM35") {
+        text.textContent = "Pripojte LM35 k vývojové doske. Po správnom zapojení umiestnite heater blízko senzora a sledujte zmenu teploty. Ak chcete zobraziť schému zapojenia senzora, umiestnite kurzor myši na senzor, kliknite pravým tlačidlom myši a v ponuke vyberte možnosť Schéma zapojenia.";
+    } else if (element === "I2C") {
+        text.textContent = "Pripojte akcelerometer cez I2C k vývojové doske. Po správnom zapojení môžete pohybovať doskou a sledovať zmeny hodnôt. Ak chcete zobraziť schému zapojenia senzora, umiestnite kurzor myši na senzor, kliknite pravým tlačidlom myši a v ponuke vyberte možnosť Schéma zapojenia.";
+    } else if (element === "GP2Y0A41SK0F") {
+        text.textContent = "Pripojte senzor vzdialenosti k vývojové doske a otestujte jeho reakciu pomocou objektu umiestneného pred senzorom. Ak chcete zobraziť schému zapojenia senzora, umiestnite kurzor myši na senzor, kliknite pravým tlačidlom myši a v ponuke vyberte možnosť Schéma zapojenia.";
+    } else if (element === "hall") {
+        text.textContent = "Pripojte Hall senzor k vývojové doske a použite magnet na otestovanie reakcie senzora. Ak chcete zobraziť schému zapojenia senzora, umiestnite kurzor myši na senzor, kliknite pravým tlačidlom myši a v ponuke vyberte možnosť Schéma zapojenia.";
+    } else {
+        overlay.style.display = "none";
+        return;
     }
-    else {
-        let popup = document.getElementById('tutorial-overlay');
-        popup.innerHTML = '';
-        popup.style.display = 'none';
-    }
-    popup.appendChild(text);
-    let button = document.createElement("button");
-    button.style.display = "flex";
-    button.innerText = "Zatvoriť";
-    button.addEventListener("click", (event) => {
-        let popup = document.getElementById('tutorial-overlay');
-        popup.innerHTML = '';
-        popup.style.display = 'none';
-    })
-    popup.appendChild(button);
+
+    overlay.style.display = "flex";
+}
+
+const closeBtn = document.getElementById("tutorial-close");
+if (closeBtn) {
+    closeBtn.addEventListener("click", () => {
+        document.getElementById("tutorial-overlay").style.display = "none";
+    });
 }
 
 function addDeviceintoList(sensorId) {

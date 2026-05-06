@@ -17,8 +17,8 @@
   <div id="menubar"><a onclick="goBack()" class="back-btn">← Späť</a></div>
 
   <div id="buttons">
-    <div class="state" id="OFF" onclick="tutorialSwitch()"><img src="../media/icon/tutoroff.png"></div>
-    <a href="../profile/profile.html"><img id="toolbar_profile" src="../media/icon/avatar.png" alt=""></a>
+    <div class="toolbarbtn" id="OFF" onclick="tutorialSwitch()">Návod <img src="../media/icon/tutoroff.png"></div>
+    <a href="../profile/profile.html"><div class="toolbarbtn">Profil<img id="toolbar_profile" src="../media/icon/avatar.png" alt=""></div></a>
   </div>
 </div>
 
@@ -83,7 +83,6 @@
 
     <!--logic for the connection is in lab.js file -->
     <!--adding the sensors script-->
-    <script  src="lab.js"></script>
     <script  src="boardshandler.js"></script>
     <script src="simulation.js"></script>
 
@@ -164,7 +163,7 @@
     <div id="lab-control">
       <button id="apply-settings" onclick="addSensor()">Pridať komponent</button>
       <div>
-        <img src="../media/icon/save.png" alt="reset" width="35px" height="35px" onclick="safeCurrentVersion()"/>
+        <img src="../media/icon/save.png" alt="reset" width="35px" height="35px" onclick="safeCurrelntVersion()"/>
         <img src="../media/icon/reset.png" alt="reset" width="35px" height="35px" onclick="resetSettings()"/>
       </div>
     </div>
@@ -178,8 +177,11 @@
 
 <div id="tutorial-overlay">
   <div class="tutorial-box">
+    <h3 id="tutorial-title">Návod</h3>
+    <p id="tutorial-text"></p>
+    <button id="tutorial-close">Zatvoriť</button>
   </div>
 </div>
-
+<script  src="lab.js"></script>
 </body>
 </html>
