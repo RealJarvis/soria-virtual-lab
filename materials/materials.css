@@ -2,53 +2,38 @@
 
 body {
     margin: 0;
-    font-family: Arial, sans-serif;
+    font-family: monospace;
     background: radial-gradient(circle at center, #07142a 0%, #050d1a 70%);
     color: #0a0a0a;
 
 }
 
-/* TOP BAR */
-.top-bar {
-    background: #00baff;
-    padding: 14px 24px;
-    display: flex;
-    align-items: center;
-    gap: 20px;
-    border-radius: 0 0 16px 16px;
-}
+
 
 .back-btn {
-    color: white;
+    position: absolute;
+    top: 14px;
+    left: 24px;
+    color: #fff;
     text-decoration: none;
+    font-size: 18px;
     font-weight: 500;
+    z-index: 10;
 }
 
-.progress-bar {
-    flex: 1;
-    background: white;
-    height: 18px;
-    border-radius: 999px;
-    overflow: hidden;
-}
-
-.progress-fill {
-    width: 12%;
-    height: 100%;
-    background: #39ff14;
-}
 
 /* MAIN LAYOUT */
 .content {
     display: flex;
     gap: 40px;
     padding: 40px;
+    margin-top: 40px;
 }
 
 /* LEFT PANEL */
 .left-panel {
     width: 280px;
-    background: #00baff;
+    background: #1c2740;
     border-radius: 20px;
     padding: 20px;
     display: flex;
@@ -56,12 +41,15 @@ body {
     gap: 20px;
     max-height: 500px;
     overflow-y: auto;
-    scrollbar-color: blue #00baff;
+    scrollbar-color: blue #1c2740;
+    justify-content: center;
 }
 
 
 
-.test-btn {
+.source-btn {
+    top: 110px;
+    position: fixed;
     background: #0077ff;
     color: white;
     border: none;
@@ -72,15 +60,10 @@ body {
 }
 
 
-.image-card {
-    background: white;
-    border-radius: 14px;
-    padding: 10px;
 
-}
-
-.image-card img {
+#image-link{
     width: 100%;
+
     border-radius: 10px;
 
 }
@@ -88,6 +71,7 @@ body {
 /* RIGHT TEXT CARD */
 .text-card {
     flex: 1;
+    font-family: Arial, sans-serif;
     background: white;
     border-radius: 24px;
     padding: 40px;
@@ -95,6 +79,7 @@ body {
     max-height: 490px;
     overflow-y: auto;
     scrollbar-color: blue white;
+    font-size: 25px;
 }
 
 .text-card h1 {

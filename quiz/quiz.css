@@ -7,7 +7,7 @@ body {
 
 /* TOP BAR */
 .top-bar {
-    background: #00baff;
+    background: #1c2740;
     padding: 14px 24px;
     display: flex;
     align-items: center;
@@ -45,8 +45,10 @@ body {
 
 /* CARD */
 .quiz-card {
-    width: 420px;
-    background: #0d6efd;
+    width: 600px;
+    height: auto;
+    min-height: 390px;
+    background: #1c2740;
     border-radius: 22px;
     padding: 26px;
     box-shadow: 0 25px 50px rgba(0,0,0,0.45);
@@ -60,16 +62,11 @@ body {
     align-items: center;
 }
 
-.timer {
-    background: #1ccfff;
-    padding: 6px 12px;
-    border-radius: 999px;
-    font-size: 14px;
-}
 
 /* QUESTION */
 .question-box {
-    background: #3b8df8;
+    background: #3e5591;
+    line-height: 1.5;
     border-radius: 16px;
     padding: 16px;
     margin: 20px 0;
@@ -93,7 +90,7 @@ body {
 
 
 .answer-btn {
-    background: #1d30f5;
+    background: #2951b4;
     color: white;
     border: none;
     padding: 12px;

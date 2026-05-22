@@ -494,7 +494,10 @@ function getPinCenter(pin) {
 }
 
 function createWire(pin1, pin2) {
-    pinControler(pin1, pin2);
+    let isWiringWrong = pinControler(pin1, pin2);
+
+    sensorBreaker(isWiringWrong);
+
     const wireLayer = document.getElementById('wire-layer');
 
     const line = document.createElementNS('http://www.w3.org/2000/svg', 'polyline');
@@ -545,6 +548,10 @@ function createWire(pin1, pin2) {
 
     // return update function so dragging can trigger it
     return updateLine;
+}
+
+function sensorBreaker (stateofSensor) {
+
 }
 
 function resetSettings() {

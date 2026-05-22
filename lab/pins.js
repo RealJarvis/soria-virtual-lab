@@ -1,3 +1,7 @@
+let damagedDevices = {}
+
+
+
 function createPowerPort(container, name, xPercent, yPercent) {
     const powerport = document.createElement("div");
     const label = document.createElement("div");
@@ -104,12 +108,21 @@ function isPinUsed(pin) {
 
 
 function pinControler(pin1, pin2) {
+
+
     let p1 = pin1.dataset.pin;
     let p2 = pin2.dataset.pin;
 
     if ((p1 === "VCC" && p2 === "GND") ||
         (p1 === "GND" && p2 === "VCC")) {
         printOnConsole("⚠️ Short circuit (VCC - GND)")
+        isShortCircuited = true;
+    }
+
+    if ((p1 === "5V" && p2 === "GND") ||
+        (p1 === "GND" && p2 === "5V")) {
+        printOnConsole("⚠️ Short circuit (5V - GND)")
+        isShortCircuited = true;
     }
 
     // invalid
@@ -118,6 +131,8 @@ function pinControler(pin1, pin2) {
         return;
     }
 
+
+    return isShortCircuited;
 }
 
 // the next 2 functions are used for pin connection validation, which allows to start the simulation for particular sensors
@@ -132,4 +147,3 @@ function isConnected(pinA, pinB) {
         (w.pin1 === pinB && w.pin2 === pinA)
     );
 }
-
