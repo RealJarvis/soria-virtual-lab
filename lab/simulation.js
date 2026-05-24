@@ -2,6 +2,16 @@
 // storage for the running simulation
 let runningSimulations = {};
 
+function saveMeasurement(sensorId, type, value, unit, extra = {}) {
+    experimentMeasurements.push({
+        time: new Date().toISOString(),
+        sensorId: sensorId,
+        type: type,
+        value: value,
+        unit: unit,
+        ...extra
+    });
+}
 
 // function that prints the information on the console
 function printOnConsole(text) {
@@ -12,6 +22,11 @@ function printOnConsole(text) {
     // adding the text into the console
     console.appendChild(consTxt);
     console.scrollTop = console.scrollHeight; // autoscroll
+
+    experimentLogs.push({
+        time: new Date().toISOString(),
+        message: text
+    });
 }
 
 
@@ -105,16 +120,18 @@ function startURM09Simulation(sensorId, boardId){
         }
 
         let cm = pixelsToCm(minDistance);
-
-
         printOnConsole("URM09 distance: " + cm + " cm");
+
+        saveMeasurement(sensorId, "distance", cm, "cm", {
+            boardId: boardId,
+            sensorModel: "URM09"
+        });
 
 
     },2000);
     runningSimulations[sensorId] = intervalId;
 }
 
-/* TODO this is the code made for the temperature sensor  */
 
 const ROOM_TEMP = 22;      // ambient temperature
 const HEATER_POWER = 140;  // heat strength (tunable)
@@ -171,7 +188,7 @@ function calculateTemperature(sensor){
     return Math.round(temp);
 }
 
-//TODO the simulation will not stop automatically if the sensor was connected to Arduino
+
 function startTemperatureSensor(sensorId, boardId) {
     if (runningSimulations[sensorId]) return;
 
@@ -193,6 +210,12 @@ function startTemperatureSensor(sensorId, boardId) {
 
         const temperature = calculateTemperature(sensor);
         printOnConsole("Temperature: " + temperature + " °C");
+
+        // saving the measurements in case a user wants to upload the data on his computer
+        saveMeasurement(sensorId, "temperature", temperature, "°C", {
+            boardId: boardId
+        });
+
     }, 2000);
 
     runningSimulations[sensorId] = intervalId;
@@ -374,6 +397,12 @@ function startHallSimulation(sensorId, boardId) {
         }else{
             printOnConsole("No magnet → LOW");
         }
+
+        // stores the measurements in case a user wants to upload it
+        saveMeasurement(sensorId, "magnetic_detection", detected ? "HIGH" : "LOW", "", {
+            boardId: boardId,
+            detected: detected
+        });
 
     },2000);
 

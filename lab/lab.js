@@ -578,9 +578,91 @@ function resetSettings() {
     draggedEl = null;
     poweredBoards = {};
     window.selectedSensor = null;
+
+    // clearing the measurement storage for another experiment
+    experimentMeasurements = [];
+    experimentLogs = [];
 }
 
+// function that collects the experiment data
+function collectExperimentData() {
+    return {
+        id: Date.now(),
+        date: new Date().toISOString(),
 
+        devices: Array.from(document.querySelectorAll("#lab-area .sensor")).map(sensor => ({
+            id: sensor.id,
+            type: sensor.dataset.type,
+            damaged: sensor.dataset.damaged === "true"
+        })),
+
+        connections: wires.map(w => ({
+            fromDevice: w.pin1.closest(".sensor").id,
+            fromPin: w.pin1.dataset.pin,
+            toDevice: w.pin2.closest(".sensor").id,
+            toPin: w.pin2.dataset.pin
+        })),
+
+        poweredBoards: poweredBoards,
+        simulationActive: simulationActive,
+
+        measurements: experimentMeasurements || [],
+        logs: experimentLogs || []
+    };
+}
+
+function saveExperimentToLocalStorage() {
+    const experiment = collectExperimentData();
+
+    const savedExperiments =
+        JSON.parse(localStorage.getItem("soriaExperiments")) || [];
+
+    savedExperiments.push(experiment);
+
+    localStorage.setItem("soriaExperiments", JSON.stringify(savedExperiments));
+
+    printOnConsole("✅ Experiment bol uložený do lokálneho úložiska.");
+
+    return experiment;
+}
+
+// function that exports the file with the experiment data
+function exportExperiment() {
+    const experiment = saveExperimentToLocalStorage();
+
+    const jsonData = JSON.stringify(experiment, null, 2);
+
+    const blob = new Blob([jsonData], {
+        type: "application/json"
+    });
+
+    const url = URL.createObjectURL(blob);
+
+    const link = document.createElement("a");
+    link.href = url;
+    link.download = `soria-experiment-${experiment.id}.json`;
+
+    document.body.appendChild(link);
+    link.click();
+    document.body.removeChild(link);
+
+    URL.revokeObjectURL(url);
+
+    printOnConsole("⬇️ Experiment bol exportovaný ako JSON súbor.");
+}
+
+const saveExperimentBtn = document.getElementById("save-experiment-btn");
+
+if (saveExperimentBtn) {
+    saveExperimentBtn.addEventListener("click", () => {
+        if (document.querySelectorAll("#lab-area .sensor").length === 0) {
+            printOnConsole("⚠️ Nie je čo uložiť. Laboratórium je prázdne.");
+            return;
+        }
+
+        exportExperiment();
+    });
+}
 
 
 

@@ -1,4 +1,5 @@
-let damagedDevices = {}
+let experimentMeasurements = [];
+let experimentLogs = [];
 
 
 
@@ -116,13 +117,13 @@ function pinControler(pin1, pin2) {
     if ((p1 === "VCC" && p2 === "GND") ||
         (p1 === "GND" && p2 === "VCC")) {
         printOnConsole("⚠️ Short circuit (VCC - GND)")
-        isShortCircuited = true;
+
     }
 
     if ((p1 === "5V" && p2 === "GND") ||
         (p1 === "GND" && p2 === "5V")) {
         printOnConsole("⚠️ Short circuit (5V - GND)")
-        isShortCircuited = true;
+
     }
 
     // invalid
@@ -132,7 +133,7 @@ function pinControler(pin1, pin2) {
     }
 
 
-    return isShortCircuited;
+
 }
 
 // the next 2 functions are used for pin connection validation, which allows to start the simulation for particular sensors
