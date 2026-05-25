@@ -70,3 +70,4 @@ function handleCommand(command) {
         writeConsole("Unidentified command");
     }
 }
+
