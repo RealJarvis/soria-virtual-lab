@@ -326,28 +326,57 @@ body {
 }
 
 /*coding segment*/
-
 .code-segment {
-    display: none;             /* hidden initially */
-    background: rgba(0, 0, 0, 0.8);
-    backdrop-filter: blur(6px);
-    align-self: center;
-    align-items: center;
-    min-height: 270px;         /* space for code content */
+    display: none;
+    flex-direction: column;
+    height: 270px;
+    width: 100%;
+    overflow: hidden;
+    background: black;
     color: white;
     font-family: Consolas, monospace;
+}
+
+#console-output {
+    flex: 1;
+    min-height: 0;
     overflow-y: auto;
+    overflow-x: hidden;
+    padding: 8px 10px;
+    box-sizing: border-box;
 }
 
-
-.code-segment textarea {
-    resize: none;
-    border-radius: 0 0 8px 8px;
-    width: 415px;
+#console-output p {
+    margin: 2px 0;
+    white-space: pre-wrap;
 }
 
+.console-input-line {
+    flex-shrink: 0;
+    display: flex;
+    align-items: center;
+    gap: 6px;
+    padding: 8px 10px;
+    background: black;
+}
 
+.console-input-line span {
+    color: white;
+    font-family: Consolas, monospace;
+    font-size: 16px;
+    font-weight: 600;
+}
 
+#console-input {
+    flex: 1;
+    background: transparent;
+    color: white;
+    border: none;
+    outline: none;
+    font-family: Consolas, monospace;
+    font-size: 16px;
+    font-weight: 600;
+}
 
 
 

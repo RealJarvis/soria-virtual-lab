@@ -308,22 +308,19 @@ function switchMenu(btn) {
         el.style.display = "none";
     });
 
-    document.querySelectorAll('.devices-segment').forEach(el => {
-        el.style.display = "none";
-    });
-
     if (btn.dataset.type === "settings") {
         document.querySelectorAll('.settings-segment').forEach(el => {
             el.style.display = "flex";
         });
-    } else if (btn.dataset.type === "code") {
+    }
+
+    else if (btn.dataset.type === "code") {
         document.querySelectorAll('.code-segment').forEach(el => {
             el.style.display = "flex";
         });
-    } else if (btn.dataset.type === "devices") {
-        document.querySelectorAll('.devices-segment').forEach(el => {
-            el.style.display = "flex";
-        });
+
+        const input = document.getElementById("console-input");
+        if (input) input.focus();
     }
 }
 

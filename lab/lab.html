@@ -48,17 +48,21 @@
       <div id="interface-buttons" class="tabs">
         <div class="tab active" data-type="settings" onclick="switchMenu(this)">Logy</div>
         <div class="tab" data-type="code" onclick="switchMenu(this)">Konzola</div>
-        <div class="tab" data-type="devices" onclick="switchMenu(this)">Zariadenia</div>
+
         <!-- CONTENT -->
       </div>
 
       <div id="state-of" class="settings-segment"></div>
 
       <div class="code-segment">
-        <textarea class="code-segment" id="code" rows="5" cols="53"></textarea>
-        <script src="console.js"></script>
-      </div>
+        <div id="console-output"></div>
 
+        <div class="console-input-line">
+          <span>/&gt;</span>
+          <input id="console-input" type="text" autocomplete="off">
+        </div>
+      </div>
+      <script src="console.js"></script>
       <div class="devices-segment">
 
       </div>
