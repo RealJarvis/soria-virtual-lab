@@ -6,7 +6,8 @@ const sensorSchematics = {
     "URM": "../media/info/URM09wire.jpg",
     "I2C": "../media/info/I2Cwire.jpg",
     "potentiometer": "../media/info/Sliderwire.jpg",
-    "hall": "../media/info/Hallwire.jpg"
+    "hall": "../media/info/Hallwire.jpg",
+    "GP2Y0A41SK0F" : "../media/info/GPwire.jpg"
 
 };
 

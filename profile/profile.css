@@ -240,3 +240,56 @@ a {
         max-width: 360px;
     }
 }
+
+
+.experiment-modal {
+    position: fixed;
+    inset: 0;
+    display: none;
+    justify-content: center;
+    align-items: center;
+    background: rgba(0, 0, 0, 0.65);
+    z-index: 9999;
+}
+
+.experiment-modal-box {
+    width: min(700px, 90vw);
+    max-height: 80vh;
+    background: #1c2740;
+    color: white;
+    border-radius: 22px;
+    padding: 28px;
+    position: relative;
+    overflow-y: auto;
+    box-shadow: 0 25px 60px rgba(0,0,0,0.55);
+}
+
+.experiment-modal-box h2 {
+    margin-top: 0;
+    margin-bottom: 20px;
+}
+
+.modal-close {
+    position: absolute;
+    top: 14px;
+    right: 18px;
+    background: transparent;
+    border: none;
+    color: white;
+    font-size: 30px;
+    cursor: pointer;
+}
+
+.experiment-content h3 {
+    margin-top: 22px;
+    color: #39ff14;
+}
+
+.experiment-content ul {
+    padding-left: 22px;
+}
+
+.experiment-content li {
+    margin-bottom: 8px;
+    line-height: 1.4;
+}

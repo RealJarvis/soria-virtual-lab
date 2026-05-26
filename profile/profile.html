@@ -43,19 +43,34 @@
 
         <div class="stat-row">
             <span>Presnosť</span>
-            <span>75%</span>
+            <span id="accuracy-value">0%</span>
         </div>
 
         <div class="stat-row progress-row">
             <span>Pokrok</span>
             <div class="progress-bar">
-                <div class="progress-fill"></div>
+                <div id="progress-fill" class="progress-fill"></div>
             </div>
         </div>
 
-        <div class="link-row">
+        <div class="link-row" id="open-experiment-btn">
             Otvorit' experiment <span class="arrow">›</span>
         </div>
+
+        <!--This serves to open the json file from the user's computer-->
+        <input type="file" id="experiment-file-input" accept=".json" style="display: none;">
+
+        <div id="experiment-modal" class="experiment-modal">
+            <div class="experiment-modal-box">
+                <button id="close-experiment-modal" class="modal-close">×</button>
+
+                <h2>Načítaný experiment</h2>
+
+                <div id="experiment-content" class="experiment-content"></div>
+            </div>
+        </div>
+
+        <script src="jsonhandler.js"></script>
 
         <div class="link-row">
             História učenia <span class="arrow">›</span>
