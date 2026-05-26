@@ -13,14 +13,35 @@ const sensorSchematics = {
 
 
 function findSensorInfo() {
-    let panel = document.getElementById("information-panel");
-    panel.style.display = "flex";
-    let buttons = document.getElementById("info-buttons");
-    buttons.style.display = "flex";
+    if (!window.selectedSensor) {
+        printOnConsole("⚠️ Najprv vyberte senzor.");
+        return;
+    }
 
-    let closeButton = document.getElementById("close-button");
-    closeButton.style.display = "flex";
+    const sensorId = window.selectedSensor.id;
 
+    let topic = null;
+
+    if (sensorId.startsWith("LM35")) {
+        topic = "LM35";
+    } else if (sensorId.startsWith("URM09")) {
+        topic = "URM09";
+    } else if (sensorId.startsWith("I2C")) {
+        topic = "I2C";
+    } else if (sensorId.startsWith("GP2Y0A41SK0F")) {
+        topic = "GP2Y0A41SK0F";
+    } else if (sensorId.startsWith("potentiometer")) {
+        topic = "potentiometer";
+    } else if (sensorId.startsWith("hall")) {
+        topic = "hall";
+    }
+
+    if (!topic) {
+        printOnConsole("⚠️ Pre tento komponent nie je dostupná teória.");
+        return;
+    }
+
+    window.location.href = `../materials/materials.html?topic=${topic}`;
 }
 
 function closeInfoPanel() {
