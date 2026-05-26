@@ -37,7 +37,7 @@ function findSensorInfo() {
     }
 
     if (!topic) {
-        printOnConsole("⚠️ Pre tento komponent nie je dostupná teória.");
+        printOnConsole("Pre tento komponent nie je dostupná teória.");
         return;
     }
 
@@ -53,13 +53,22 @@ function closeInfoPanel() {
 
 /* Function that open the picture for the specific sensor*/
 function openImage() {
-    const type = window.selectedSensor.id.replace(/[0-9]+$/, '');
-    console.log(type);
+    if (!window.selectedSensor) {
+        printOnConsole("Najprv vyberte komponent.");
+        return;
+    }
+
+    const type = window.selectedSensor.dataset.type;
     const path = sensorSchematics[type];
-    if (!type || !path) return;
+
+    if (!path) {
+        printOnConsole("Pre tento komponent nie je dostupná schéma zapojenia.");
+        return;
+    }
 
     document.getElementById("schematic-image").src = path;
     document.getElementById("image-viewer").style.display = "flex";
+
     closeInfoPanel();
 }
 
