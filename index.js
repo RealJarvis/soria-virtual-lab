@@ -18,7 +18,7 @@ const ROOT_DIR = __dirname;
 
 // session
 app.use(session({
-    secret: 'soria_secret_key',
+    secret: process.env.SESSION_SECRET || 'development_secret',
     resave: false,
     saveUninitialized: false,
     cookie: {
@@ -209,6 +209,6 @@ app.use((err, req, res, next) => {
     res.status(500).send(`Internal server error`);
 });
 
-app.listen(PORT, () => {
+app.listen(PORT, '0.0.0.0', () => {
     console.log(`>>> Express server running on port ${PORT}`);
 });

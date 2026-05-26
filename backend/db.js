@@ -1,12 +1,22 @@
 const { Pool } = require('pg');
+require('dotenv').config();
 
-const pool = new Pool({
-    user: 'postgres',          // or your custom DB user
-    host: 'localhost',
-    database: 'soria_db',
-    password: 'hokus1304',
-    port: 5432,
-});
+const pool = new Pool(
+    process.env.DATABASE_URL
+        ? {
+            connectionString: process.env.DATABASE_URL,
+            ssl: process.env.NODE_ENV === 'production'
+                ? { rejectUnauthorized: false }
+                : false
+        }
+        : {
+            user: process.env.DB_USER || 'postgres',
+            host: process.env.DB_HOST || 'localhost',
+            database: process.env.DB_NAME || 'soria_db',
+            password: process.env.DB_PASSWORD || '',
+            port: process.env.DB_PORT || 5432,
+        }
+);
 
 pool.connect()
     .then(client => {

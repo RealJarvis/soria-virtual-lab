@@ -1,19 +1,19 @@
 {
-  "name": "manager",
+  "name": "soria",
   "version": "1.0.0",
-  "description": "main server that handles the files and connects databases to the project",
+  "description": "Web application for virtual sensor laboratory",
   "main": "index.js",
   "scripts": {
-    "start": "node index",
-    "dev": "nodemon index"
+    "start": "node index.js",
+    "dev": "nodemon index.js"
   },
   "author": "Ihor Hamaniuk",
   "license": "ISC",
   "dependencies": {
     "bcrypt": "^6.0.0",
+    "dotenv": "^16.4.7",
     "express": "^5.2.1",
     "express-session": "^1.19.0",
-    "express-sessions": "^1.0.1",
     "pg": "^8.20.0",
     "uuid": "^14.0.0"
   },

@@ -1,0 +1,28 @@
+services:
+  soria-app:
+    build: .
+    container_name: soria-app
+    ports:
+      - "5000:5000"
+    env_file:
+      - .env
+    depends_on:
+      - soria-db
+    restart: unless-stopped
+
+  soria-db:
+    image: postgres:16
+    container_name: soria-db
+    environment:
+      POSTGRES_DB: soria_db
+      POSTGRES_USER: postgres
+      POSTGRES_PASSWORD: 12345
+    ports:
+      - "5432:5432"
+    volumes:
+      - soria_postgres_data:/var/lib/postgresql/data
+      - ./database.sql:/docker-entrypoint-initdb.d/database.sql
+    restart: unless-stopped
+
+volumes:
+  soria_postgres_data:
