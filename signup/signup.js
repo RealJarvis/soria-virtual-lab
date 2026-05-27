@@ -8,7 +8,6 @@ const messageBox = document.getElementById('signup-message');
 
 signupBtn.addEventListener('click', async (e) => {
     e.preventDefault();
-    console.log('signup clicked');
 
     const username = usernameInput.value.trim();
     const email = emailInput.value.trim();
@@ -17,6 +16,11 @@ signupBtn.addEventListener('click', async (e) => {
 
     if (!username || !email || !role || !password) {
         messageBox.textContent = 'Vyplňte všetky polia.';
+        return;
+    }
+
+    if (password.length < 5) {
+        messageBox.textContent = 'Heslo musí mať aspoň 5 znakov.';
         return;
     }
 

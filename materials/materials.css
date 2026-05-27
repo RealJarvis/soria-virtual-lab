@@ -19,7 +19,6 @@ body {
 }
 
 #toolbar {
-
     position: relative;
     padding-left: 24px;
     padding-right: 24px;
@@ -36,6 +35,11 @@ body {
     width: 30px;
     height: 30px;
     cursor: pointer;
+}
+#buttons {
+    display: flex;
+    gap: 20px;
+
 }
 
 

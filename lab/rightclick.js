@@ -18,7 +18,7 @@ function findSensorInfo() {
         return;
     }
 
-    const sensorId = window.selectedSensor.id.replace(/[-_]*[0-9]+$/, '');
+    const sensorId = window.selectedSensor.id;
 
     let topic = null;
 
