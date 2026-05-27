@@ -58,9 +58,10 @@ function openImage() {
         return;
     }
 
-    const type = window.selectedSensor.dataset.type;
-    const path = sensorSchematics[type];
+    const type = window.selectedSensor.id.replace(/[0-9]+$/, '');
 
+    const path = sensorSchematics[type];
+    console.log(path)
     if (!path) {
         printOnConsole("Pre tento komponent nie je dostupná schéma zapojenia.");
         return;
