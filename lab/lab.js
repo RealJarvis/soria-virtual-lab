@@ -59,11 +59,11 @@ function tutorialSwitch() {
     if (toolbarbtn.id === "ON"){
         toolbarbtn.id = "OFF";
         tutorialState = false;
-        image.src = "./../media/icon/tutoroff.png";
+
     }else {
         toolbarbtn.id = "ON";
         tutorialState = true;
-        image.src = "./../media/icon/tutor.png";
+
 
         const overlay = document.getElementById("tutorial-overlay");
         const title = document.getElementById("tutorial-title");
